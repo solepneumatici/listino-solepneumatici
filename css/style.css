@@ -1,3 +1,7 @@
+/* ==========================================================================
+   SOLE PNEUMATICI - LISTINO DIGITALE TV (STYLE UNIFICATO & EXECUTIVE)
+   ========================================================================== */
+
 :root {
     --bg-color: #0b0b0b;
     --card-bg: #161616;
@@ -34,6 +38,7 @@ body, html {
     padding: 2.5rem 4rem 1.5rem 4rem;
 }
 
+/* Header */
 header {
     display: flex;
     justify-content: space-between;
@@ -70,12 +75,13 @@ header {
 .datetime-box {
     font-size: 1.6rem;
     font-weight: 700;
-    color: #FFFFFF; /* Testo Bianco */
+    color: #FFFFFF;
     text-align: right;
     letter-spacing: 1px;
     line-height: 1.3;
 }
 
+/* Corpo Principale */
 main {
     flex-grow: 1;
     display: flex;
@@ -111,6 +117,7 @@ main {
     gap: 1.2rem;
 }
 
+/* Carte Servizio */
 .service-card {
     background-color: var(--card-bg);
     border: 1px solid var(--card-border);
@@ -125,7 +132,7 @@ main {
 
 .service-card.promo-active {
     border-left-color: var(--primary-orange);
-    background: linear-gradient(90deg, rgba(255,165,0,0.08) 0%, var(--card-bg) 100%);
+    background: linear-gradient(90deg, rgba(243, 108, 33, 0.12) 0%, var(--card-bg) 100%);
 }
 
 .service-info {
@@ -140,9 +147,29 @@ main {
 }
 
 .service-desc {
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     color: var(--text-muted);
-    line-height: 1.4;
+    line-height: 1.5;
+    margin-top: 0.3rem;
+}
+
+/* Evidenziatore Dinamico / Pulse per Punti Chiave */
+.highlight-text {
+    color: var(--primary-orange);
+    font-weight: 800;
+    text-shadow: 0 0 10px rgba(243, 108, 33, 0.4);
+    animation: softPulse 2.5s infinite ease-in-out;
+}
+
+@keyframes softPulse {
+    0%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 8px rgba(243, 108, 33, 0.3);
+    }
+    50% {
+        opacity: 0.75;
+        text-shadow: 0 0 18px rgba(243, 108, 33, 0.85);
+    }
 }
 
 .service-price-box {
@@ -166,14 +193,14 @@ main {
 
 .price-old {
     font-size: 1.5rem;
-    color: #888;
+    color: #888888;
     text-decoration: line-through;
     margin-right: 0.5rem;
 }
 
 .promo-badge {
     background-color: var(--primary-orange);
-    color: #000;
+    color: #000000;
     font-size: 0.95rem;
     font-weight: 800;
     padding: 0.2rem 0.6rem;
@@ -182,6 +209,33 @@ main {
     margin-bottom: 0.3rem;
 }
 
+/* Stile e Animazione Bollino / Badge Promo Inclinato (Effetto Gonfiaggio/Respiro) */
+.promo-badge-large {
+    background-color: var(--primary-orange);
+    color: #000000;
+    font-size: 2.3rem;
+    font-weight: 900;
+    padding: 1.5rem 2.8rem;
+    border-radius: 18px;
+    text-transform: uppercase;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(243, 108, 33, 0.5);
+    transform: rotate(-4deg);
+    animation: badgePulse 3s infinite ease-in-out;
+}
+
+@keyframes badgePulse {
+    0%, 100% {
+        transform: rotate(-4deg) scale(1);
+        box-shadow: 0 10px 25px rgba(243, 108, 33, 0.4);
+    }
+    50% {
+        transform: rotate(-2deg) scale(1.06);
+        box-shadow: 0 15px 35px rgba(243, 108, 33, 0.8);
+    }
+}
+
+/* Footer & Progress Bar */
 footer {
     display: flex;
     flex-direction: column;
@@ -199,18 +253,19 @@ footer {
 .progress-bar-container {
     width: 100%;
     height: 6px;
-    background-color: #222;
+    background-color: #222222;
     border-radius: 3px;
     overflow: hidden;
 }
 
-.progress-bar {
+.progress-bar, .progress-bar-fill {
     height: 100%;
     width: 0%;
     background-color: var(--primary-orange);
     transition: width 0.1s linear;
 }
 
+/* Animazioni */
 .fade-in {
     animation: fadeIn 0.6s ease-in-out forwards;
 }
@@ -220,8 +275,7 @@ footer {
     to { opacity: 1; transform: translateY(0); }
 }
 
-
-/* Layout Schermata Finale Orari e Prenotazione */
+/* Layout Schermata Finale (Orari e Sito Web) */
 .info-page-container {
     display: flex;
     flex-direction: column;
@@ -266,14 +320,14 @@ footer {
 }
 
 .booking-card {
-    background: linear-gradient(135deg, rgba(255,165,0,0.15) 0%, var(--card-bg) 100%);
+    background: linear-gradient(135deg, rgba(243, 108, 33, 0.15) 0%, var(--card-bg) 100%);
     border: 2px solid var(--primary-orange);
     border-radius: 12px;
     padding: 2.5rem 4rem;
     width: 100%;
     max-width: 1100px;
     text-align: center;
-    box-shadow: 0 10px 35px rgba(255,165,0,0.1);
+    box-shadow: 0 10px 35px rgba(243, 108, 33, 0.1);
 }
 
 .booking-title {
@@ -290,5 +344,5 @@ footer {
     font-weight: 900;
     color: var(--primary-orange);
     letter-spacing: 2px;
-    text-shadow: 0 0 20px rgba(255,165,0,0.3);
+    text-shadow: 0 0 20px rgba(243, 108, 33, 0.3);
 }
