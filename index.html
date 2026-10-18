@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sole Pneumatici - Listino Prezzi Digitale</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="brand-box">
+                <h1 class="brand-title">SOLE <span>PNEUMATICI</span></h1>
+                <p class="brand-tagline" id="brand-slogan">Abbiamo a cuore la tua sicurezza</p>
+            </div>
+            <!-- DATA E ORA IN BIANCO SULLA DESTRA -->
+            <div class="datetime-box" id="datetime-display">--:--</div>
+        </header>
+
+        <main id="main-content" class="fade-in">
+        </main>
+
+        <footer>
+            <div class="footer-info">
+                <span>Qualità, Trasparenza e Tecnologia Automotive</span>
+                <span id="page-indicator">Scheda 1 di 1</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- CARICA DATI E LOGICA -->
+    <script src="js/listino_data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

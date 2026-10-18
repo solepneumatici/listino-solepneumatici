@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pannello Gestione Listino - Sole Pneumatici</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #1a1a1a; color: #fff; margin: 0; padding: 20px; }
+        .admin-card { background: #2a2a2a; border-radius: 8px; padding: 20px; margin-bottom: 25px; border-left: 4px solid #FFA500; }
+        h1 { color: #FFA500; margin-top: 0; }
+        h2 { color: #fff; border-bottom: 1px solid #444; padding-bottom: 8px; }
+        input[type="text"] { padding: 10px; background: #333; border: 1px solid #555; color: #fff; border-radius: 4px; font-size: 1rem; width: 100%; box-sizing: border-box; }
+        .service-row { background: #222; padding: 15px; border-radius: 6px; margin-bottom: 12px; display: grid; grid-template-columns: 2fr 3fr 1fr 1fr auto; gap: 10px; align-items: center; }
+        .btn { background: #FFA500; color: #000; font-weight: bold; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; }
+        .btn:hover { background: #e09200; }
+        .actions-bar { position: sticky; top: 10px; background: #111; padding: 15px; border-radius: 8px; z-index: 100; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+    </style>
+</head>
+<body>
+    <div class="actions-bar">
+        <h1>Gestione Listino Prezzi</h1>
+        <div>
+            <input type="file" id="file-input" accept=".json" style="display:none">
+            <button class="btn" onclick="document.getElementById('file-input').click()">1. Carica listino.json</button>
+            <button class="btn" onclick="salvaFileJSON()" style="background-color: #4CAF50; color: white;">2. Scarica JSON Aggiornato</button>
+        </div>
+    </div>
+
+    <div id="editor-container" style="margin-top: 20px;">
+        <p style="color: #aaa;">Carica il file <code>data/listino.json</code> per modificare i prezzi e i servizi.</p>
+    </div>
+
+    <script>
+        let listinoData = null;
+
+        document.getElementById('file-input').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                listinoData = JSON.parse(e.target.result);
+                renderAdminForm();
+            };
+            reader.readAsText(file);
+        });
+
+        function renderAdminForm() {
+            if (!listinoData) return;
+            const container = document.getElementById('editor-container');
+            container.innerHTML = '';
+
+            listinoData.categorie.forEach((cat, catIdx) => {
+                const catDiv = document.createElement('div');
+                catDiv.className = 'admin-card';
+                let html = `<h2>Categoria: ${cat.titolo}</h2>`;
+                
+                cat.servizi.forEach((serv, servIdx) => {
+                    html += `
+                        <div class="service-row">
+                            <div>
+                                <label style="font-size:0.8rem; color:#aaa;">Nome Servizio</label>
+                                <input type="text" value="${serv.nome}" onchange="updateServizio(${catIdx}, ${servIdx}, 'nome', this.value)">
+                            </div>
+                            <div>
+                                <label style="font-size:0.8rem; color:#aaa;">Descrizione</label>
+                                <input type="text" value="${serv.descrizione || ''}" onchange="updateServizio(${catIdx}, ${servIdx}, 'descrizione', this.value)">
+                            </div>
+                            <div>
+                                <label style="font-size:0.8rem; color:#aaa;">Prezzo (€)</label>
+                                <input type="text" value="${serv.prezzo}" onchange="updateServizio(${catIdx}, ${servIdx}, 'prezzo', this.value)">
+                            </div>
+                            <div>
+                                <label style="font-size:0.8rem; color:#aaa;">Unità</label>
+                                <input type="text" value="${serv.unita || ''}" onchange="updateServizio(${catIdx}, ${servIdx}, 'unita', this.value)">
+                            </div>
+                            <div>
+                                <label style="font-size:0.8rem; color:#aaa;">Attivo</label><br>
+                                <input type="checkbox" ${serv.attivo ? 'checked' : ''} onchange="updateServizio(${catIdx}, ${servIdx}, 'attivo', this.checked)">
+                            </div>
+                        </div>
+                    `;
+                });
+                catDiv.innerHTML = html;
+                container.appendChild(catDiv);
+            });
+        }
+
+        function updateServizio(catIdx, servIdx, field, value) {
+            listinoData.categorie[catIdx].servizi[servIdx][field] = value;
+        }
+
+        function salvaFileJSON() {
+            if (!listinoData) {
+                alert("Nessun dato da salvare. Carica prima il file listino.json");
+                return;
+            }
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(listinoData, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", "listino.json");
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+    </script>
+</body>
+</html>
