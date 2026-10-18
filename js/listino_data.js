@@ -15,7 +15,7 @@ const LISTINO_DATA = {
         {
           "nome": "Montaggio & Equilibratura Cerchi in Acciaio",
           "descrizione": "Inclusa sostituzione valvola standard e serraggio dinamometrico",
-          "prezzo": "50,00€",
+          "prezzo": "100,00€",
           "unita": "a gomma",
           "promozione": true,
           "prezzo_promo": "40,00€",
