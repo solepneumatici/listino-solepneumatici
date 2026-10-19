@@ -421,4 +421,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     loadData();
+
+    // ==========================================
+    // SCREEN WAKE LOCK (Impedisce lo standby TV)
+    // ==========================================
+    let wakeLock = null;
+
+    async function requestWakeLock() {
+        try {
+            if ('wakeLock' in navigator) {
+                wakeLock = await navigator.wakeLock.request('screen');
+                console.log('Screen Wake Lock attivo');
+            }
+        } catch (err) {
+            console.log(`Wake Lock Error: ${err.name}, ${err.message}`);
+        }
+    }
+
+    requestWakeLock();
+
+    document.addEventListener('visibilitychange', async () => {
+        if (wakeLock !== null && document.visibilityState === 'visible') {
+            await requestWakeLock();
+        }
+    });
 });
