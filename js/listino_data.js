@@ -269,6 +269,14 @@ const LISTINO_DATA = {
     },
     {
       "ordine": 9,
+      "id": "meteo_mappano",
+      "titolo": "Meteo Locale • Mappano (TO)",
+      "durata_sec": 6,
+      "is_meteo_page": true,
+      "attivo": true
+    },
+    {
+      "ordine": 10,
       "id": "orari_prenotazione",
       "titolo": "Orari di Apertura & Prenotazioni Online",
       "durata_sec": 4,
