@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let secondsElapsed = 0;
     let carouselInterval = null;
     let isPaused = false;
+    let cachedMeteoData = null;
+    let lastMeteoFetchTime = null;
 
     const mainContent = document.getElementById('main-content');
     const brandSlogan = document.getElementById('brand-slogan');
@@ -59,18 +61,17 @@ document.addEventListener('DOMContentLoaded', () => {
             listinoData.categorie.sort((a, b) => (a.ordine || 99) - (b.ordine || 99));
         }
 
-        // 2. Filtra le categorie mantenendo quelle attive, non scadute e coerenti con la stagione
+        // 2. Filtra le categorie mantenendo quelle attive
         listinoData.categorie = listinoData.categorie.filter(cat => {
             if (!cat.attivo) return false;
-            if (cat.is_info_page) return true;
+            if (cat.is_info_page || cat.is_meteo_page) return true;
 
-            // Controllo Servizi Stagionali in base al mese corrente (1 = Gennaio, 12 = Dicembre)
+            // Controllo Servizi Stagionali
             if (cat.is_stagionale) {
                 const meseCorrente = oggi.getMonth() + 1;
                 const inizio = cat.MeseInizio;
                 const fine = cat.MeseFine;
 
-                // Gestione dell'intervallo (es. Inverno da Ottobre (10) a Marzo (3) scavallando l'anno)
                 if (inizio > fine) {
                     if (meseCorrente < inizio && meseCorrente > fine) return false;
                 } else {
@@ -97,6 +98,69 @@ document.addEventListener('DOMContentLoaded', () => {
         setupPauseControls();
     }
 
+    // Mappatura codici meteo Open-Meteo -> Icone e Descrizioni Italiane
+    function getMeteoDetails(code) {
+        switch (code) {
+            case 0:
+                return { desc: "Sereno", icon: "☀️", color: "#FFB300" };
+            case 1:
+            case 2:
+                return { desc: "Poco Nuvoloso", icon: "⛅", color: "#FFA000" };
+            case 3:
+                return { desc: "Coperto", icon: "☁️", color: "#78909C" };
+            case 45:
+            case 48:
+                return { desc: "Nebbia", icon: "🌫️", color: "#90A4AE" };
+            case 51:
+            case 53:
+            case 55:
+                return { desc: "Pioggerella", icon: "🌦️", color: "#4FC3F7" };
+            case 61:
+            case 63:
+            case 65:
+                return { desc: "Pioggia", icon: "🌧️", color: "#0288D1" };
+            case 71:
+            case 73:
+            case 75:
+                return { desc: "Neve", icon: "❄️", color: "#29B6F6" };
+            case 80:
+            case 81:
+            case 82:
+                return { desc: "Rovesci di Pioggia", icon: "🌧️", color: "#0277BD" };
+            case 95:
+            case 96:
+            case 99:
+                return { desc: "Temporale", icon: "🌩️", color: "#5C6BC0" };
+            default:
+                return { desc: "Variabile", icon: "🌤️", color: "#FFB300" };
+        }
+    }
+
+    function fetchMeteoData(callback) {
+        const now = new Date();
+        if (cachedMeteoData && lastMeteoFetchTime && (now - lastMeteoFetchTime < 15 * 60 * 1000)) {
+            callback(cachedMeteoData);
+            return;
+        }
+
+        // Coordinate di Mappano (TO)
+        const lat = 45.1481;
+        const lon = 7.7051;
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Europe%2FRome`;
+
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                cachedMeteoData = data;
+                lastMeteoFetchTime = new Date();
+                callback(data);
+            })
+            .catch(err => {
+                console.error("Errore fetch meteo:", err);
+                callback(null);
+            });
+    }
+
     function renderCurrentCategory() {
         if (!listinoData || !listinoData.categorie || listinoData.categorie.length === 0) return;
 
@@ -107,10 +171,91 @@ document.addEventListener('DOMContentLoaded', () => {
         const category = listinoData.categorie[currentCategoryIndex];
         let html = "";
 
+        if (category.is_meteo_page) {
+            fetchMeteoData((meteoData) => {
+                const ora = new Date();
+                const giorni = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
+                const mesi = ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'];
+                const dataStr = `${giorni[ora.getDay()]} ${ora.getDate()} ${mesi[ora.getMonth()]}`;
+                const oraStr = `${String(ora.getHours()).padStart(2, '0')}:${String(ora.getMinutes()).padStart(2, '0')}`;
+
+                let tempAttuale = "--°C";
+                let condizionI = getMeteoDetails(-1);
+                let forecastHtml = "";
+
+                if (meteoData && meteoData.current_weather) {
+                    tempAttuale = `${Math.round(meteoData.current_weather.temperature)}°C`;
+                    condizionI = getMeteoDetails(meteoData.current_weather.weathercode);
+
+                    if (meteoData.daily && meteoData.daily.time) {
+                        for (let i = 0; i < Math.min(3, meteoData.daily.time.length); i++) {
+                            const dateObj = new Date(meteoData.daily.time[i]);
+                            const dayName = i === 0 ? "OGGI" : giorni[dateObj.getDay()].toUpperCase();
+                            const code = meteoData.daily.weathercode[i];
+                            const det = getMeteoDetails(code);
+                            const max = Math.round(meteoData.daily.temperature_2m_max[i]);
+                            const min = Math.round(meteoData.daily.temperature_2m_min[i]);
+
+                            forecastHtml += `
+                                <div style="flex: 1; background: #FFFFFF; border: 2px solid #E0E0E0; border-radius: 12px; padding: 1.2rem; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.06);">
+                                    <div style="font-size: 1.2rem; font-weight: 800; color: #111111; margin-bottom: 0.5rem;">${dayName}</div>
+                                    <div style="font-size: 3rem; margin: 0.4rem 0;">${det.icon}</div>
+                                    <div style="font-size: 1.3rem; font-weight: 700; color: #E65100;">${max}° <span style="color: #555555; font-weight: 500;">/ ${min}°</span></div>
+                                </div>
+                            `;
+                        }
+                    }
+                }
+
+                html = `
+                    <div style="background-color: #F8F9FA; border-radius: 16px; padding: 2rem 2.5rem; height: 100%; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 10px 30px rgba(0,0,0,0.15); border: 3px solid #E65100;">
+                        <!-- Intestazione Slide Meteo con Logo -->
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E0E0E0; padding-bottom: 1rem;">
+                            <div style="display: flex; align-items: center; gap: 1.5rem;">
+                                <img src="images/logo.png" alt="Logo Sole Pneumatici" style="height: 55px; width: auto; display: block;" />
+                                <div style="font-size: 2rem; font-weight: 900; color: #111111; text-transform: uppercase; letter-spacing: 0.5px;">
+                                    METEO LOCALE • MAPPANO (TO)
+                                </div>
+                            </div>
+                            <div style="font-size: 1.2rem; font-weight: 700; color: #E65100; background: #FFF3E0; padding: 0.5rem 1rem; border-radius: 20px;">
+                                Aggiornato il ${dataStr} alle ${oraStr}
+                            </div>
+                        </div>
+
+                        <!-- Blocco Centrale: Temp Attuale + Icona -->
+                        <div style="display: flex; align-items: center; justify-content: space-around; margin: 1.5rem 0;">
+                            <div style="font-size: 8rem; line-height: 1;">${condizionI.icon}</div>
+                            <div style="display: flex; flex-direction: column;">
+                                <div style="font-size: 5rem; font-weight: 900; color: #111111; line-height: 1;">${tempAttuale}</div>
+                                <div style="font-size: 2.2rem; font-weight: 800; color: #E65100; margin-top: 0.5rem;">${condizionI.desc}</div>
+                            </div>
+                            <div style="background: #FFFFFF; border: 2px solid #E65100; border-radius: 12px; padding: 1.5rem; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.05); max-width: 320px;">
+                                <div style="font-size: 1.2rem; font-weight: 800; color: #111111; margin-bottom: 0.5rem;">🚘 Consigli per la Sicurezza:</div>
+                                <div style="font-size: 1.1rem; color: #333333; line-height: 1.4;">
+                                    Verifica la pressione delle gomme e l'efficienza delle spazzole tergicristallo con le variazioni termiche!
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Previsioni Prossimi Giorni -->
+                        <div style="display: flex; gap: 1.5rem;">
+                            ${forecastHtml}
+                        </div>
+                    </div>
+                `;
+
+                mainContent.classList.remove('fade-in');
+                void mainContent.offsetWidth;
+                mainContent.innerHTML = html;
+                mainContent.classList.add('fade-in');
+                updateIndicatorText();
+            });
+            return;
+        }
+
         if (category.is_info_page) {
             html = `
                 <div style="display: flex; flex-direction: row; width: 100%; height: 100%; align-items: center; justify-content: space-between; gap: 3rem; padding: 1rem 2rem;">
-                    <!-- Colonna Sinistra: Orari e Sito Web -->
                     <div style="display: flex; flex-direction: column; gap: 2rem; flex: 1.3;">
                         <div style="background-color: var(--card-bg); border: 2px solid var(--primary-orange); border-radius: 14px; padding: 2.5rem 2rem; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
                             <div style="font-size: 1.8rem; color: var(--primary-orange); font-weight: 800; margin-bottom: 1rem; text-transform: uppercase;">Orari di Apertura Officina</div>
@@ -125,7 +270,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
 
-                    <!-- Colonna Destra: QR Code -->
                     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: var(--card-bg); border: 2px solid var(--primary-orange); border-radius: 14px; padding: 2.5rem 2rem; text-align: center; flex: 0.9; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
                         <div style="font-size: 1.4rem; color: var(--text-main); font-weight: 700; margin-bottom: 1.5rem; line-height: 1.4;">
                             📱 Inquadra per prenotare in 30 secondi dal tuo telefono!
