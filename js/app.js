@@ -420,78 +420,45 @@ document.addEventListener('DOMContentLoaded', () => {
     loadData();
 
     // =========================================================================
-    // GENERATORE AUTOMATICO DI FLUSSO VIDEO (CANVAS -> STREAM -> TAG VIDEO)
-    // Inganna il motore hardware di LG webOS fornendo un vero e proprio stream video.
+    // ANTI-SCREENSAVER PER LG webOS
+    // Il TV va a riposo se non vede un VERO video in riproduzione.
+    // Riproduciamo in loop un piccolo file MP4 (video/keepalive.mp4).
     // =========================================================================
-    (function createLiveStreamAntiScreensaver() {
-        // 1. Crea un canvas dinamico invisibile
-        const canvas = document.createElement('canvas');
-        canvas.width = 160;
-        canvas.height = 90;
-        const ctx = canvas.getContext('2d');
-
-        // Carica il logo da inserire nell'animazione canvas
-        const logoImg = new Image();
-        logoImg.src = 'images/logo.png';
-
-        let angle = 0;
-        function drawFrame() {
-            ctx.fillStyle = '#111111';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.save();
-            ctx.translate(canvas.width / 2, canvas.height / 2);
-            
-            // Effetto movimento/oscillazione continua
-            angle += 0.05;
-            const scale = 1 + Math.sin(angle) * 0.1;
-            ctx.scale(scale, scale);
-
-            if (logoImg.complete && logoImg.naturalWidth !== 0) {
-                ctx.drawImage(logoImg, -40, -15, 80, 30);
-            } else {
-                ctx.fillStyle = '#E65100';
-                ctx.font = '12px Segoe UI, sans-serif';
-                ctx.textAlign = 'center';
-                ctx.fillText('SOLE PNEUMATICI', 0, 4);
-            }
-            ctx.restore();
-
-            requestAnimationFrame(drawFrame);
-        }
-        drawFrame();
-
-        // 2. Crea il tag video visibile in basso a destra
-        const videoBox = document.createElement('div');
-        videoBox.style.position = 'fixed';
-        videoBox.style.bottom = '8px';
-        videoBox.style.right = '8px';
-        videoBox.style.width = '120px';
-        videoBox.style.height = '68px';
-        videoBox.style.borderRadius = '8px';
-        videoBox.style.overflow = 'hidden';
-        videoBox.style.border = '2px solid #E65100';
-        videoBox.style.boxShadow = '0 4px 10px rgba(0,0,0,0.5)';
-        videoBox.style.zIndex = '999999';
-        videoBox.style.pointerEvents = 'none';
+    (function antiScreensaver() {
+        const box = document.createElement('div');
+        box.style.cssText = 'position:fixed;bottom:8px;right:8px;width:96px;height:54px;' +
+            'border-radius:6px;overflow:hidden;border:2px solid #FFA500;z-index:999999;' +
+            'pointer-events:none;opacity:0.6;';
 
         const video = document.createElement('video');
-        video.setAttribute('autoplay', '');
-        video.setAttribute('loop', '');
+        video.src = 'video/keepalive.mp4';
+        video.loop = true;
+        video.muted = true;          // proprietà (non solo attributo): serve per l'autoplay
+        video.autoplay = true;
+        video.playsInline = true;
         video.setAttribute('muted', '');
-        video.setAttribute('playsinline', '');
-        video.style.width = '100%';
-        video.style.height = '100%';
-        video.style.objectFit = 'cover';
+        video.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
 
-        videoBox.appendChild(video);
-        document.body.appendChild(videoBox);
+        box.appendChild(video);
+        document.body.appendChild(box);
 
-        // 3. Connette il Canvas allo stream del Video
-        if (canvas.captureStream) {
-            const stream = canvas.captureStream(30); // 30 FPS
-            video.srcObject = stream;
-            video.play().catch(e => console.log('Autoplay stream video:', e));
+        function avvia() {
+            const p = video.play();
+            if (p && p.catch) p.catch(err => console.log('Autoplay bloccato:', err));
         }
+        avvia();
+
+        // Se per qualche motivo il video si ferma, lo facciamo ripartire
+        setInterval(() => { if (video.paused || video.ended) avvia(); }, 5000);
+
+        // Al primo tasto del telecomando (se l'autoplay fosse stato bloccato)
+        document.addEventListener('keydown', avvia, { once: true });
+        document.addEventListener('click', avvia, { once: true });
+
+        // Ricarica la pagina ogni notte alle 3:00 (mantiene il browser "fresco")
+        setInterval(() => {
+            const d = new Date();
+            if (d.getHours() === 3 && d.getMinutes() === 0) location.reload();
+        }, 60000);
     })();
 });
