@@ -175,4 +175,323 @@ document.addEventListener('DOMContentLoaded', () => {
             fetchMeteoData((meteoData) => {
                 const ora = new Date();
                 const giorni = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
-                const mesi =
+                const mesi = ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'];
+                const dataStr = `${giorni[ora.getDay()]} ${ora.getDate()} ${mesi[ora.getMonth()]}`;
+                const oraStr = `${String(ora.getHours()).padStart(2, '0')}:${String(ora.getMinutes()).padStart(2, '0')}`;
+
+                let tempAttuale = "--°C";
+                let condizionI = getMeteoDetails(-1);
+                let forecastHtml = "";
+
+                if (meteoData && meteoData.current_weather) {
+                    tempAttuale = `${Math.round(meteoData.current_weather.temperature)}°C`;
+                    condizionI = getMeteoDetails(meteoData.current_weather.weathercode);
+
+                    if (meteoData.daily && meteoData.daily.time) {
+                        for (let i = 0; i < Math.min(3, meteoData.daily.time.length); i++) {
+                            const dateObj = new Date(meteoData.daily.time[i]);
+                            const dayName = i === 0 ? "OGGI" : giorni[dateObj.getDay()].toUpperCase();
+                            const code = meteoData.daily.weathercode[i];
+                            const det = getMeteoDetails(code);
+                            const max = Math.round(meteoData.daily.temperature_2m_max[i]);
+                            const min = Math.round(meteoData.daily.temperature_2m_min[i]);
+
+                            forecastHtml += `
+                                <div style="flex: 1; background: #FFFFFF; border: 2px solid #E0E0E0; border-radius: 12px; padding: 1.2rem; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.06);">
+                                    <div style="font-size: 1.2rem; font-weight: 800; color: #111111; margin-bottom: 0.5rem;">${dayName}</div>
+                                    <div style="font-size: 3rem; margin: 0.4rem 0;">${det.icon}</div>
+                                    <div style="font-size: 1.3rem; font-weight: 700; color: #E65100;">${max}° <span style="color: #555555; font-weight: 500;">/ ${min}°</span></div>
+                                </div>
+                            `;
+                        }
+                    }
+                }
+
+                html = `
+                    <div style="background-color: #F8F9FA; border-radius: 16px; padding: 2rem 2.5rem; height: 100%; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 10px 30px rgba(0,0,0,0.15); border: 3px solid #E65100;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E0E0E0; padding-bottom: 1rem;">
+                            <div style="display: flex; align-items: center; gap: 1.5rem;">
+                                <img src="images/logo.png" alt="Logo Sole Pneumatici" style="height: 55px; width: auto; display: block;" />
+                                <div style="font-size: 2rem; font-weight: 900; color: #111111; text-transform: uppercase; letter-spacing: 0.5px;">
+                                    METEO LOCALE • MAPPANO (TO)
+                                </div>
+                            </div>
+                            <div style="font-size: 1.2rem; font-weight: 700; color: #E65100; background: #FFF3E0; padding: 0.5rem 1rem; border-radius: 20px;">
+                                Aggiornato il ${dataStr} alle ${oraStr}
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; justify-content: space-around; margin: 1.5rem 0;">
+                            <div style="font-size: 8rem; line-height: 1;">${condizionI.icon}</div>
+                            <div style="display: flex; flex-direction: column;">
+                                <div style="font-size: 5rem; font-weight: 900; color: #111111; line-height: 1;">${tempAttuale}</div>
+                                <div style="font-size: 2.2rem; font-weight: 800; color: #E65100; margin-top: 0.5rem;">${condizionI.desc}</div>
+                            </div>
+                            <div style="background: #FFFFFF; border: 2px solid #E65100; border-radius: 12px; padding: 1.5rem; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.05); max-width: 320px;">
+                                <div style="font-size: 1.2rem; font-weight: 800; color: #111111; margin-bottom: 0.5rem;">🚘 Consigli per la Sicurezza:</div>
+                                <div style="font-size: 1.1rem; color: #333333; line-height: 1.4;">
+                                    Verifica la pressione delle gomme e l'efficienza delle spazzole tergicristallo con le variazioni termiche!
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 1.5rem;">
+                            ${forecastHtml}
+                        </div>
+                    </div>
+                `;
+
+                mainContent.classList.remove('fade-in');
+                void mainContent.offsetWidth;
+                mainContent.innerHTML = html;
+                mainContent.classList.add('fade-in');
+                updateIndicatorText();
+            });
+            return;
+        }
+
+        if (category.is_info_page) {
+            html = `
+                <div style="display: flex; flex-direction: row; width: 100%; height: 100%; align-items: center; justify-content: space-between; gap: 3rem; padding: 1rem 2rem;">
+                    <div style="display: flex; flex-direction: column; gap: 2rem; flex: 1.3;">
+                        <div style="background-color: var(--card-bg); border: 2px solid var(--primary-orange); border-radius: 14px; padding: 2.5rem 2rem; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                            <div style="font-size: 1.8rem; color: var(--primary-orange); font-weight: 800; margin-bottom: 1rem; text-transform: uppercase;">Orari di Apertura Officina</div>
+                            <div style="font-size: 2.8rem; font-weight: 800; color: var(--text-main); white-space: nowrap;">
+                                ${category.orario_mattina} <span style="color: var(--primary-orange); margin: 0 0.5rem;">•</span> ${category.orario_pomeriggio}
+                            </div>
+                        </div>
+
+                        <div style="background-color: var(--card-bg); border: 2px solid var(--primary-orange); border-radius: 14px; padding: 2.2rem 2rem; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                            <div style="font-size: 1.4rem; color: var(--text-muted); margin-bottom: 0.6rem; text-transform: uppercase; font-weight: 600;">Prenota il tuo appuntamento online su</div>
+                            <div style="font-size: 2.6rem; color: var(--primary-orange); font-weight: 800;">${category.sito_web}</div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: var(--card-bg); border: 2px solid var(--primary-orange); border-radius: 14px; padding: 2.5rem 2rem; text-align: center; flex: 0.9; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                        <div style="font-size: 1.4rem; color: var(--text-main); font-weight: 700; margin-bottom: 1.5rem; line-height: 1.4;">
+                            📱 Inquadra per prenotare in 30 secondi dal tuo telefono!
+                        </div>
+                        <div style="background: white; padding: 14px; border-radius: 12px; display: inline-block;">
+                            <img src="${category.qr_code_img || 'images/qr-code.png'}" alt="QR Code Sole Pneumatici" style="width: 180px; height: 180px; display: block;" />
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else if (category.is_promo_spot) {
+            const servizio = category.servizi && category.servizi[0] ? category.servizi[0] : {};
+            const scadenzaTesto = servizio.scadenza_promo ? `<div style="font-size: 1.1rem; color: var(--primary-orange); font-weight: 600; margin-top: 0.5rem;">📅 ${servizio.scadenza_promo}</div>` : '';
+            
+            html = `
+                <h2 class="category-title">${category.titolo}</h2>
+                <div class="promo-spot-card" style="background-color: var(--card-bg); border: 2px solid var(--primary-orange); border-radius: 12px; padding: 3rem 3.5rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; margin-top: 1rem;">
+                    <div class="service-info" style="max-width: 60%;">
+                        <div class="service-name" style="font-size: 2.6rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.8rem;">${servizio.nome || ''}</div>
+                        <div class="service-desc" style="font-size: 1.4rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1.5rem;">${servizio.descrizione || ''}</div>
+                        <div style="font-size: 1.3rem; color: var(--text-main); font-weight: 600; margin-bottom: 0.5rem;">
+                            Prezzo: <span style="text-decoration: line-through; color: #888; margin-right: 0.5rem;">${formatPrice(servizio.prezzo)}</span>
+                            <span style="color: var(--primary-orange); font-size: 1.8rem; font-weight: 800;">${formatPrice(servizio.prezzo_promo)}</span> ${servizio.unita || ''}
+                        </div>
+                        ${scadenzaTesto}
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding-right: 2rem;">
+                        <div class="promo-badge-large">
+                            ${servizio.testo_badge || 'PROMO'}
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else {
+            const activeServices = category.servizi.filter(s => s.attivo);
+
+            html = `<h2 class="category-title">${category.titolo}</h2>`;
+            html += `<div class="services-list">`;
+
+            activeServices.forEach(servizio => {
+                const isPromo = servizio.promozione;
+                const cardClass = isPromo ? "service-card promo-active" : "service-card";
+                
+                let priceDisplay = "";
+                if (isPromo && servizio.prezzo_promo) {
+                    priceDisplay = `
+                        <span class="promo-badge">PROMOZIONE</span>
+                        <div>
+                            <span class="price-old">${formatPrice(servizio.prezzo)}</span>
+                            <span class="price-main" style="color: var(--primary-orange);">${formatPrice(servizio.prezzo_promo)}</span>
+                        </div>
+                    `;
+                } else {
+                    priceDisplay = `<span class="price-main">${formatPrice(servizio.prezzo)}</span>`;
+                }
+
+                html += `
+                    <div class="${cardClass}">
+                        <div class="service-info">
+                            <div class="service-name">${servizio.nome}</div>
+                            <div class="service-desc">${servizio.descrizione || ''}</div>
+                        </div>
+                        <div class="service-price-box">
+                            ${priceDisplay}
+                            <span class="price-unit">${servizio.unita || ''}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+        }
+
+        mainContent.classList.remove('fade-in');
+        void mainContent.offsetWidth;
+        mainContent.innerHTML = html;
+        mainContent.classList.add('fade-in');
+
+        updateIndicatorText();
+    }
+
+    function updateIndicatorText() {
+        if (!pageIndicator || !listinoData || !listinoData.categorie) return;
+
+        const category = listinoData.categorie[currentCategoryIndex];
+        const currentDuration = category.durata_sec || (listinoData.azienda && listinoData.azienda.intervallo_rotazione_sec) || 4;
+        
+        const remainingSec = Math.max(0, Math.ceil(currentDuration - secondsElapsed));
+
+        if (isPaused) {
+            pageIndicator.innerHTML = `Scheda ${currentCategoryIndex + 1} di ${listinoData.categorie.length} &nbsp;<strong style="color: var(--primary-orange);">[PAUSA]</strong>`;
+        } else {
+            pageIndicator.innerHTML = `Scheda ${currentCategoryIndex + 1} di ${listinoData.categorie.length} &nbsp;<span style="color: var(--primary-orange); font-weight: 700;">(${remainingSec}s)</span>`;
+        }
+    }
+
+    function formatPrice(valore) {
+        if (!valore || valore === "DA_CONFIGURARE" || valore.toString().trim() === "") {
+            return "Tariffa in sede";
+        }
+        if (typeof valore === 'number' || !isNaN(valore)) {
+            return `€ ${parseFloat(valore).toFixed(2).replace('.', ',')}`;
+        }
+        return valore;
+    }
+
+    function togglePause() {
+        isPaused = !isPaused;
+        updateIndicatorText();
+    }
+
+    function setupPauseControls() {
+        document.addEventListener('click', () => {
+            togglePause();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                togglePause();
+            }
+        });
+    }
+
+    function startCarousel() {
+        if (carouselInterval) clearInterval(carouselInterval);
+
+        function runStep() {
+            if (isPaused) return;
+
+            const category = listinoData.categorie[currentCategoryIndex];
+            const currentDuration = category.durata_sec || (listinoData.azienda && listinoData.azienda.intervallo_rotazione_sec) || 4;
+
+            secondsElapsed += 0.1;
+            const percentage = (secondsElapsed / currentDuration) * 100;
+            if (progressBar) progressBar.style.width = `${Math.min(percentage, 100)}%`;
+
+            updateIndicatorText();
+
+            if (secondsElapsed >= currentDuration) {
+                secondsElapsed = 0;
+                currentCategoryIndex = (currentCategoryIndex + 1) % listinoData.categorie.length;
+                renderCurrentCategory();
+            }
+        }
+
+        secondsElapsed = 0;
+        carouselInterval = setInterval(runStep, 100);
+    }
+
+    loadData();
+
+    // =========================================================================
+    // GENERATORE AUTOMATICO DI FLUSSO VIDEO (CANVAS -> STREAM -> TAG VIDEO)
+    // Inganna il motore hardware di LG webOS fornendo un vero e proprio stream video.
+    // =========================================================================
+    (function createLiveStreamAntiScreensaver() {
+        // 1. Crea un canvas dinamico invisibile
+        const canvas = document.createElement('canvas');
+        canvas.width = 160;
+        canvas.height = 90;
+        const ctx = canvas.getContext('2d');
+
+        // Carica il logo da inserire nell'animazione canvas
+        const logoImg = new Image();
+        logoImg.src = 'images/logo.png';
+
+        let angle = 0;
+        function drawFrame() {
+            ctx.fillStyle = '#111111';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.save();
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            
+            // Effetto movimento/oscillazione continua
+            angle += 0.05;
+            const scale = 1 + Math.sin(angle) * 0.1;
+            ctx.scale(scale, scale);
+
+            if (logoImg.complete && logoImg.naturalWidth !== 0) {
+                ctx.drawImage(logoImg, -40, -15, 80, 30);
+            } else {
+                ctx.fillStyle = '#E65100';
+                ctx.font = '12px Segoe UI, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('SOLE PNEUMATICI', 0, 4);
+            }
+            ctx.restore();
+
+            requestAnimationFrame(drawFrame);
+        }
+        drawFrame();
+
+        // 2. Crea il tag video visibile in basso a destra
+        const videoBox = document.createElement('div');
+        videoBox.style.position = 'fixed';
+        videoBox.style.bottom = '8px';
+        videoBox.style.right = '8px';
+        videoBox.style.width = '120px';
+        videoBox.style.height = '68px';
+        videoBox.style.borderRadius = '8px';
+        videoBox.style.overflow = 'hidden';
+        videoBox.style.border = '2px solid #E65100';
+        videoBox.style.boxShadow = '0 4px 10px rgba(0,0,0,0.5)';
+        videoBox.style.zIndex = '999999';
+        videoBox.style.pointerEvents = 'none';
+
+        const video = document.createElement('video');
+        video.setAttribute('autoplay', '');
+        video.setAttribute('loop', '');
+        video.setAttribute('muted', '');
+        video.setAttribute('playsinline', '');
+        video.style.width = '100%';
+        video.style.height = '100%';
+        video.style.objectFit = 'cover';
+
+        videoBox.appendChild(video);
+        document.body.appendChild(videoBox);
+
+        // 3. Connette il Canvas allo stream del Video
+        if (canvas.captureStream) {
+            const stream = canvas.captureStream(30); // 30 FPS
+            video.srcObject = stream;
+            video.play().catch(e => console.log('Autoplay stream video:', e));
+        }
+    })();
+});
