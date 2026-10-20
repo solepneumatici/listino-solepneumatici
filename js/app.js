@@ -484,4 +484,34 @@ document.addEventListener('DOMContentLoaded', () => {
             if (d.getHours() === 3 && d.getMinutes() === 0) location.reload();
         }, 60000);
     })();
+
+    // =========================================================================
+    // PROVA: CLIC SIMULATO OGNI 2 MINUTI E 30 SECONDI
+    // Clic (pausa) + dopo 1 secondo altro clic (ripartenza).
+    // In basso a sinistra compare l'ora dell'ultimo clic, per verificare.
+    // =========================================================================
+    (function clicSimulato() {
+        const etichetta = document.createElement('div');
+        etichetta.style.cssText = 'position:fixed;bottom:4px;left:8px;font-size:0.8rem;' +
+            'color:#555;z-index:999999;pointer-events:none;';
+        document.body.appendChild(etichetta);
+
+        function clic() {
+            const x = window.innerWidth / 2, y = window.innerHeight / 2;
+            const opz = { bubbles: true, cancelable: true, view: window, clientX: x, clientY: y };
+            const el = document.elementFromPoint(x, y) || document.body;
+            el.dispatchEvent(new MouseEvent('mousemove', opz));
+            el.dispatchEvent(new MouseEvent('mousedown', opz));
+            el.dispatchEvent(new MouseEvent('mouseup', opz));
+            el.dispatchEvent(new MouseEvent('click', opz));
+        }
+
+        setInterval(() => {
+            clic();                       // va in pausa
+            setTimeout(clic, 1000);       // riparte
+            const d = new Date();
+            etichetta.textContent = 'clic ' + String(d.getHours()).padStart(2, '0') + ':' +
+                String(d.getMinutes()).padStart(2, '0') + ':' + String(d.getSeconds()).padStart(2, '0');
+        }, 150000);
+    })();
 });
