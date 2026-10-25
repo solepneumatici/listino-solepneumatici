@@ -1,0 +1,65 @@
+/* ==========================================================================
+   INTRO ANIMATA (logo che si compone e poi si scompone, prima del listino)
+   Tutto questo file serve solo all'animazione iniziale. Non toccare.
+   ========================================================================== */
+#intro {
+    position: fixed; left: 0; top: 0; right: 0; bottom: 0;
+    z-index: 9999;
+    overflow: hidden;
+    pointer-events: none;
+    /* Rete di sicurezza: se per qualsiasi motivo lo script non parte, dopo 14 secondi sparisce da solo */
+    animation: introSicurezza 0.6s ease 14s forwards;
+}
+@keyframes introSicurezza { to { opacity: 0; visibility: hidden; } }
+
+#intro .i-veil {
+    position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+    background: radial-gradient(120% 90% at 50% 45%, #17181d 0%, #0b0b0b 62%);
+    opacity: calc(1 - var(--e, 0));
+}
+#intro .i-glow {
+    position: absolute; left: 50%; top: 46%;
+    width: 120vh; height: 120vh; margin: -60vh 0 0 -60vh;
+    background: radial-gradient(circle, rgba(255,165,0,.28) 0%, rgba(255,165,0,.09) 26%, rgba(255,165,0,0) 55%);
+    transform: scale(calc(.6 + .35 * var(--g, 0)));
+    opacity: calc(1 - var(--e, 0));
+    animation: iGlowIn 1.6s ease-out backwards;
+}
+@keyframes iGlowIn { from { opacity: 0; } }
+
+#intro .i-logo {
+    position: absolute; left: 50%; top: 46%;
+    /* larghezza, altezza e posizione precise le imposta intro.js (in pixel interi) */
+    transform: scale(calc(1 + .3 * var(--g, 0)));
+}
+#intro .i-frag {
+    position: absolute;
+    background-repeat: no-repeat;
+    will-change: transform, opacity;
+    /* Durante la dispersione: movimento guidato solo da --e (0 → 1) */
+    transform:
+        translate(calc(var(--e, 0) * var(--dx) * var(--force, 1)), calc(var(--e, 0) * var(--dy) * var(--force, 1)))
+        rotate(calc(var(--e, 0) * var(--dr)))
+        scale(calc(1 - .65 * var(--e, 0)));
+    opacity: calc(1 - var(--e, 0));
+    /* All'inizio: ogni pezzo arriva da una posizione casuale */
+    animation: iAssemble var(--assemble, 1.7s) cubic-bezier(.16, 1, .3, 1) var(--dl, 0s) backwards;
+}
+@keyframes iAssemble {
+    from { transform: translate(var(--sx), var(--sy)) rotate(var(--sr)); opacity: 0; }
+    60%  { opacity: 1; }
+    to   { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+}
+
+/* Firma CRview, piccola, in basso */
+#intro .i-firma {
+    position: absolute; left: 0; right: 0; bottom: 5.5vh;
+    text-align: center;
+    opacity: calc(var(--f, 0) * (1 - var(--e, 0)));
+}
+#intro .i-firma span {
+    display: block; margin-bottom: 1vh;
+    color: #8d8d8d; font: 600 1.6vh/1 'Segoe UI', -apple-system, Roboto, sans-serif;
+    letter-spacing: .35em; text-transform: uppercase;
+}
+#intro .i-firma img { height: 5vh; width: auto; }
