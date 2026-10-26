@@ -860,10 +860,31 @@ document.addEventListener('DOMContentLoaded', () => {
             togglePause();
         });
 
+        // Tasti: spazio o OK del telecomando = pausa/ripresa; frecce = scheda dopo/prima
+        function vaiScheda(passo) {
+            if (!listinoData || !listinoData.categorie || !listinoData.categorie.length) return;
+            const n = listinoData.categorie.length;
+            currentCategoryIndex = (currentCategoryIndex + passo + n) % n;
+            secondsElapsed = 0;
+            renderCurrentCategory();
+            // Mentre guardi una scheda il listino resta fermo 60 secondi
+            isPaused = true;
+            updateIndicatorText();
+            if (pauseTimeout) clearTimeout(pauseTimeout);
+            pauseTimeout = setTimeout(() => { isPaused = false; updateIndicatorText(); }, 60000);
+        }
+
         document.addEventListener('keydown', (e) => {
-            if (e.code === 'Space') {
+            const k = e.code || e.key;
+            if (k === 'Space' || k === 'Enter' || k === 'NumpadEnter' || e.key === 'Enter' || e.key === ' ' || e.keyCode === 23 || e.keyCode === 13) {
                 e.preventDefault();
                 togglePause();
+            } else if (k === 'ArrowRight' || e.key === 'ArrowRight' || e.keyCode === 39) {
+                e.preventDefault();
+                vaiScheda(1);
+            } else if (k === 'ArrowLeft' || e.key === 'ArrowLeft' || e.keyCode === 37) {
+                e.preventDefault();
+                vaiScheda(-1);
             }
         });
     }
