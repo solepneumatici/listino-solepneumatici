@@ -938,7 +938,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Ricarica la pagina ogni 30 minuti: così i prezzi aggiornati su GitHub
     // arrivano sul TV entro mezz'ora, e il browser resta "fresco".
-    const MINUTI_RICARICA = 1;
+    const MINUTI_RICARICA = 15;
     // Prima di ricaricare controlla che internet funzioni: se manca la connessione
     // NON ricarica (altrimenti il TV mostrerebbe una pagina di errore) e riprova dopo.
     setInterval(() => {
