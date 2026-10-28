@@ -166,7 +166,7 @@ const LISTINO_DATA = {
       "ordine": 4,
       "id": "promo_speciale_assetto_3d",
       "titolo": "SERVIZI SPECIALIZZATI DI ASSETTO E CONVERGENZA",
-      "durata_sec": 4,
+      "durata_sec": 6,
       "attivo": true,
       "is_promo_spot": true,
       "servizi": [
