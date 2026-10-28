@@ -178,11 +178,11 @@ const LISTINO_DATA = {
           "prezzo_promo": "60,00€",
           "promozione": true,
           "attivo": true,
-          "evidenzia": false,
+          "evidenzia": true,
           "whatsapp": false,
-          "scadenza_promo_data": "2026-10-23",
+          "scadenza_promo_data": "2026-10-28",
           "testo_badge": "PROMO -10€",
-          "scadenza_promo": "Valido fino al 23/10/2026"
+          "scadenza_promo": "Valido fino al 28/10/2026"
         }
       ]
     },
