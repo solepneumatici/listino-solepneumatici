@@ -144,7 +144,7 @@ const LISTINO_DATA = {
         },
         {
           "dal": "10/10",
-          "al": "15/12"
+          "al": "15/01"
         }
       ],
       "servizi": [
@@ -402,7 +402,7 @@ const LISTINO_DATA = {
       "ordine": 9,
       "id": "montaggio_gomme_cliente",
       "titolo": "PNEUMATICI NUOVI PROCURATI DAL CLIENTE",
-      "durata_sec": 12,
+      "durata_sec": 10,
       "attivo": true,
       "servizi": [
         {
