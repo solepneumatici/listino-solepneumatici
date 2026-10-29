@@ -17,6 +17,174 @@ const LISTINO_DATA = {
   "categorie": [
     {
       "ordine": 1,
+      "id": "cambio_stagionale",
+      "titolo": "CAMBIO STAGIONALE PNEUMATICI",
+      "durata_sec": 12,
+      "attivo": true,
+      "periodi": [
+        {
+          "dal": "10/04",
+          "al": "30/05"
+        },
+        {
+          "dal": "10/10",
+          "al": "30/11"
+        }
+      ],
+      "servizi": [
+        {
+          "nome": "Cambio Stagionale Auto 13\" - 17\"",
+          "descrizione": "Smontaggio, montaggio ed equilibratura inclusi.",
+          "prezzo": "da 50,00€",
+          "unita": "per 4 gomme",
+          "prezzo_promo": "",
+          "promozione": false,
+          "attivo": true,
+          "evidenzia": false,
+          "whatsapp": false
+        },
+        {
+          "nome": "Cambio Stagionale Auto 18\" - 19\"",
+          "descrizione": "Smontaggio, montaggio ed equilibratura inclusi.",
+          "prezzo": "da 60,00€",
+          "unita": "per 4 gomme",
+          "prezzo_promo": "",
+          "promozione": false,
+          "attivo": true,
+          "evidenzia": false,
+          "whatsapp": false
+        },
+        {
+          "nome": "Cambio Stagionale Auto 20\" e oltre",
+          "descrizione": "Smontaggio, montaggio ed equilibratura inclusi.",
+          "prezzo": "da 70,00€",
+          "unita": "per 4 gomme",
+          "prezzo_promo": "",
+          "promozione": false,
+          "attivo": true,
+          "evidenzia": false,
+          "whatsapp": false
+        },
+        {
+          "nome": "Cambio Stagionale Furgoni",
+          "descrizione": "Smontaggio, montaggio ed equilibratura inclusi.",
+          "prezzo": "da 60,00€",
+          "unita": "per 4 gomme",
+          "prezzo_promo": "",
+          "promozione": false,
+          "attivo": true,
+          "evidenzia": false,
+          "whatsapp": false
+        }
+      ]
+    },
+    {
+      "ordine": 2,
+      "id": "cambio_ruote_complete",
+      "titolo": "CAMBIO STAGIONALE RUOTE COMPLETE",
+      "durata_sec": 8,
+      "attivo": true,
+      "periodi": [
+        {
+          "dal": "10/04",
+          "al": "30/05"
+        },
+        {
+          "dal": "10/10",
+          "al": "30/11"
+        }
+      ],
+      "servizi": [
+        {
+          "nome": "Cambio Ruote Complete 13\" - 17\"",
+          "descrizione": "Smontaggio e montaggio ruote, serraggio dinamometrico e controllo pressione.",
+          "prezzo": "da 30,00€",
+          "unita": "per 4 ruote",
+          "prezzo_promo": "",
+          "promozione": false,
+          "attivo": true,
+          "evidenzia": false,
+          "whatsapp": false
+        },
+        {
+          "nome": "Cambio Ruote Complete 18\" - 19\"",
+          "descrizione": "Smontaggio e montaggio ruote, serraggio dinamometrico e controllo pressione.",
+          "prezzo": "da 35,00€",
+          "unita": "per 4 ruote",
+          "prezzo_promo": "",
+          "promozione": false,
+          "attivo": true,
+          "evidenzia": false,
+          "whatsapp": false
+        },
+        {
+          "nome": "Cambio Ruote Complete 20\" e oltre",
+          "descrizione": "Smontaggio e montaggio ruote, serraggio dinamometrico e controllo pressione.",
+          "prezzo": "da 40,00€",
+          "unita": "per 4 ruote",
+          "prezzo_promo": "",
+          "promozione": false,
+          "attivo": true,
+          "evidenzia": false,
+          "whatsapp": false
+        }
+      ]
+    },
+    {
+      "ordine": 3,
+      "id": "riparazione_pneumatici",
+      "titolo": "RIPARAZIONE FORATURE • SOLO SUL BATTISTRADA",
+      "durata_sec": 15,
+      "attivo": true,
+      "servizi": [
+        {
+          "nome": "Riparazione Foratura Auto",
+          "descrizione": "Smontaggio, vulcanizzazione interna, controllo finale e pressione.",
+          "prezzo": "da 30,00€",
+          "unita": "ad intervento",
+          "prezzo_promo": "",
+          "promozione": false,
+          "attivo": true,
+          "evidenzia": true,
+          "whatsapp": false
+        },
+        {
+          "nome": "Riparazione Foratura SUV / 4x4",
+          "descrizione": "Smontaggio, vulcanizzazione interna, controllo finale e pressione.",
+          "prezzo": "da 35,00€",
+          "unita": "ad intervento",
+          "prezzo_promo": "",
+          "promozione": false,
+          "attivo": true,
+          "evidenzia": false,
+          "whatsapp": false
+        },
+        {
+          "nome": "Riparazione Foratura Furgoni",
+          "descrizione": "Smontaggio, vulcanizzazione interna, controllo finale e pressione.",
+          "prezzo": "da 40,00€",
+          "unita": "ad intervento",
+          "prezzo_promo": "",
+          "promozione": false,
+          "attivo": true,
+          "evidenzia": false,
+          "whatsapp": false
+        },
+        {
+          "nome": "Riparazione Rapida",
+          "descrizione": "Con stringa, senza smontaggio. Solo se possibile in sicurezza.",
+          "prezzo": "da 20,00€",
+          "unita": "ad intervento",
+          "prezzo_promo": "",
+          "promozione": false,
+          "attivo": true,
+          "evidenzia": false,
+          "whatsapp": false
+        }
+      ]
+    },
+    {
+      "ordine": 4,
       "id": "montaggio",
       "titolo": "MONTAGGIO &amp; EQUILIBRATURA PNEUMATICI",
       "durata_sec": 6,
@@ -79,7 +247,7 @@ const LISTINO_DATA = {
       ]
     },
     {
-      "ordine": 2,
+      "ordine": 5,
       "id": "equilibratura_inversione",
       "titolo": "EQUILIBRATURA &amp; INVERSIONE RUOTE",
       "durata_sec": 5,
@@ -110,60 +278,7 @@ const LISTINO_DATA = {
       ]
     },
     {
-      "ordine": 3,
-      "id": "riparazione_pneumatici",
-      "titolo": "RIPARAZIONE FORATURE • SOLO SUL BATTISTRADA",
-      "durata_sec": 6,
-      "attivo": true,
-      "servizi": [
-        {
-          "nome": "Riparazione Foratura Auto",
-          "descrizione": "Smontaggio, vulcanizzazione interna, controllo finale e pressione.",
-          "prezzo": "da 30,00€",
-          "unita": "ad intervento",
-          "prezzo_promo": "",
-          "promozione": false,
-          "attivo": true,
-          "evidenzia": false,
-          "whatsapp": false
-        },
-        {
-          "nome": "Riparazione Foratura SUV / 4x4",
-          "descrizione": "Smontaggio, vulcanizzazione interna, controllo finale e pressione.",
-          "prezzo": "da 35,00€",
-          "unita": "ad intervento",
-          "prezzo_promo": "",
-          "promozione": false,
-          "attivo": true,
-          "evidenzia": false,
-          "whatsapp": false
-        },
-        {
-          "nome": "Riparazione Foratura Furgoni",
-          "descrizione": "Smontaggio, vulcanizzazione interna, controllo finale e pressione.",
-          "prezzo": "da 40,00€",
-          "unita": "ad intervento",
-          "prezzo_promo": "",
-          "promozione": false,
-          "attivo": true,
-          "evidenzia": false,
-          "whatsapp": false
-        },
-        {
-          "nome": "Riparazione Rapida",
-          "descrizione": "Con stringa, senza smontaggio. Solo se possibile in sicurezza.",
-          "prezzo": "da 20,00€",
-          "unita": "ad intervento",
-          "prezzo_promo": "",
-          "promozione": false,
-          "attivo": true,
-          "evidenzia": false,
-          "whatsapp": false
-        }
-      ]
-    },
-    {
-      "ordine": 4,
+      "ordine": 6,
       "id": "promo_speciale_assetto_3d",
       "titolo": "SERVIZI SPECIALIZZATI DI ASSETTO E CONVERGENZA",
       "durata_sec": 7,
@@ -187,7 +302,7 @@ const LISTINO_DATA = {
       ]
     },
     {
-      "ordine": 5,
+      "ordine": 7,
       "id": "assetto_convergenza",
       "titolo": "ASSETTO &amp; CONVERGENZA 3D HUNTER",
       "durata_sec": 4,
@@ -241,7 +356,7 @@ const LISTINO_DATA = {
       ]
     },
     {
-      "ordine": 6,
+      "ordine": 8,
       "id": "montaggio_gomme_cliente",
       "titolo": "PNEUMATICI NUOVI PROCURATI DAL CLIENTE",
       "durata_sec": 4,
@@ -305,7 +420,7 @@ const LISTINO_DATA = {
       ]
     },
     {
-      "ordine": 7,
+      "ordine": 9,
       "id": "trasparenza_servizio",
       "titolo": "ACQUISTA DA NOI: MONTAGGIO E GARANZIA INCLUSI",
       "durata_sec": 4,
@@ -342,121 +457,6 @@ const LISTINO_DATA = {
           "promozione": false,
           "attivo": true,
           "evidenzia": true,
-          "whatsapp": false
-        }
-      ]
-    },
-    {
-      "ordine": 8,
-      "id": "cambio_stagionale",
-      "titolo": "CAMBIO STAGIONALE PNEUMATICI",
-      "durata_sec": 6,
-      "attivo": true,
-      "periodi": [
-        {
-          "dal": "01/04",
-          "al": "15/05"
-        },
-        {
-          "dal": "15/10",
-          "al": "30/11"
-        }
-      ],
-      "servizi": [
-        {
-          "nome": "Cambio Stagionale Auto 13\" - 17\"",
-          "descrizione": "Smontaggio, montaggio ed equilibratura inclusi.",
-          "prezzo": "da 50,00€",
-          "unita": "per 4 gomme",
-          "prezzo_promo": "",
-          "promozione": false,
-          "attivo": true,
-          "evidenzia": false,
-          "whatsapp": false
-        },
-        {
-          "nome": "Cambio Stagionale Auto 18\" - 19\"",
-          "descrizione": "Smontaggio, montaggio ed equilibratura inclusi.",
-          "prezzo": "da 60,00€",
-          "unita": "per 4 gomme",
-          "prezzo_promo": "",
-          "promozione": false,
-          "attivo": true,
-          "evidenzia": false,
-          "whatsapp": false
-        },
-        {
-          "nome": "Cambio Stagionale Auto 20\" e oltre",
-          "descrizione": "Smontaggio, montaggio ed equilibratura inclusi.",
-          "prezzo": "da 70,00€",
-          "unita": "per 4 gomme",
-          "prezzo_promo": "",
-          "promozione": false,
-          "attivo": true,
-          "evidenzia": false,
-          "whatsapp": false
-        },
-        {
-          "nome": "Cambio Stagionale Furgoni",
-          "descrizione": "Smontaggio, montaggio ed equilibratura inclusi.",
-          "prezzo": "da 60,00€",
-          "unita": "per 4 gomme",
-          "prezzo_promo": "",
-          "promozione": false,
-          "attivo": true,
-          "evidenzia": false,
-          "whatsapp": false
-        }
-      ]
-    },
-    {
-      "ordine": 9,
-      "id": "cambio_ruote_complete",
-      "titolo": "CAMBIO STAGIONALE RUOTE COMPLETE",
-      "durata_sec": 6,
-      "attivo": true,
-      "periodi": [
-        {
-          "dal": "01/04",
-          "al": "15/05"
-        },
-        {
-          "dal": "15/10",
-          "al": "30/11"
-        }
-      ],
-      "servizi": [
-        {
-          "nome": "Cambio Ruote Complete 13\" - 17\"",
-          "descrizione": "Smontaggio e montaggio ruote, serraggio dinamometrico e controllo pressione.",
-          "prezzo": "da 30,00€",
-          "unita": "per 4 ruote",
-          "prezzo_promo": "",
-          "promozione": false,
-          "attivo": true,
-          "evidenzia": false,
-          "whatsapp": false
-        },
-        {
-          "nome": "Cambio Ruote Complete 18\" - 19\"",
-          "descrizione": "Smontaggio e montaggio ruote, serraggio dinamometrico e controllo pressione.",
-          "prezzo": "da 35,00€",
-          "unita": "per 4 ruote",
-          "prezzo_promo": "",
-          "promozione": false,
-          "attivo": true,
-          "evidenzia": false,
-          "whatsapp": false
-        },
-        {
-          "nome": "Cambio Ruote Complete 20\" e oltre",
-          "descrizione": "Smontaggio e montaggio ruote, serraggio dinamometrico e controllo pressione.",
-          "prezzo": "da 40,00€",
-          "unita": "per 4 ruote",
-          "prezzo_promo": "",
-          "promozione": false,
-          "attivo": true,
-          "evidenzia": false,
           "whatsapp": false
         }
       ]
