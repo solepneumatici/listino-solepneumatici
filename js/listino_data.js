@@ -235,7 +235,7 @@ const LISTINO_DATA = {
           "prezzo_promo": "",
           "promozione": false,
           "attivo": true,
-          "evidenzia": false,
+          "evidenzia": true,
           "whatsapp": false
         }
       ]
