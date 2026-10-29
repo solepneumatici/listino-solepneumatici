@@ -56,8 +56,8 @@ const LISTINO_DATA = {
           ],
           "periodi": [
             {
-              "dal": "15/10",
-              "al": "15/04"
+              "dal": "02/10",
+              "al": "28/02"
             }
           ]
         },
