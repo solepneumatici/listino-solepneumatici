@@ -77,11 +77,11 @@ const LISTINO_DATA = {
       "periodi": [
         {
           "dal": "10/04",
-          "al": "30/05"
+          "al": "15/06"
         },
         {
           "dal": "10/10",
-          "al": "30/11"
+          "al": "15/12"
         }
       ],
       "servizi": [
@@ -140,11 +140,11 @@ const LISTINO_DATA = {
       "periodi": [
         {
           "dal": "10/04",
-          "al": "30/05"
+          "al": "15/06"
         },
         {
           "dal": "10/10",
-          "al": "30/11"
+          "al": "15/12"
         }
       ],
       "servizi": [
@@ -192,11 +192,11 @@ const LISTINO_DATA = {
       "periodi": [
         {
           "dal": "10/04",
-          "al": "30/05"
+          "al": "15/06"
         },
         {
           "dal": "10/10",
-          "al": "30/11"
+          "al": "15/01"
         }
       ],
       "servizi": [
@@ -226,6 +226,102 @@ const LISTINO_DATA = {
     },
     {
       "ordine": 5,
+      "id": "servizi_stagionali_inverno",
+      "titolo": "INVERNO: CAMBIO GOMME &amp; CHECK",
+      "durata_sec": 8,
+      "attivo": true,
+      "periodi": [
+        {
+          "dal": "01/10",
+          "al": "28/02"
+        }
+      ],
+      "servizi": [
+        {
+          "nome": "Cambio Gomme Invernali",
+          "descrizione": "Dal 15 novembre al 15 aprile servono pneumatici invernali oppure le catene a bordo. Prenota ora il cambio.",
+          "prezzo": "da 50,00€",
+          "unita": "per 4 gomme, in base alla misura",
+          "prezzo_promo": "",
+          "promozione": false,
+          "attivo": true,
+          "evidenzia": false,
+          "whatsapp": false
+        },
+        {
+          "nome": "Controllo Livello Olio &amp; Liquidi",
+          "descrizione": "Controllo livello olio motore e liquidi generali, senza impegno.",
+          "prezzo": "GRATIS",
+          "unita": "mentre aspetti",
+          "prezzo_promo": "",
+          "promozione": false,
+          "attivo": true,
+          "evidenzia": false,
+          "whatsapp": false
+        },
+        {
+          "nome": "Sostituzione Spazzole Tergicristallo",
+          "descrizione": "Già che sei qui, chiedi le spazzole nuove!",
+          "prezzo": "da 30,00€",
+          "unita": "in base all'auto",
+          "prezzo_promo": "",
+          "promozione": false,
+          "attivo": true,
+          "evidenzia": true,
+          "whatsapp": false
+        }
+      ]
+    },
+    {
+      "ordine": 6,
+      "id": "servizi_stagionali_estate",
+      "titolo": "ESTATE: CAMBIO GOMME &amp; CHECK",
+      "durata_sec": 8,
+      "attivo": true,
+      "periodi": [
+        {
+          "dal": "01/03",
+          "al": "30/09"
+        }
+      ],
+      "servizi": [
+        {
+          "nome": "Cambio Gomme Estive",
+          "descrizione": "Dal 15 aprile le gomme invernali con velocità inferiore al libretto non sono ammesse (tolleranza fino al 15 maggio).",
+          "prezzo": "da 50,00€",
+          "unita": "per 4 gomme, in base alla misura",
+          "prezzo_promo": "",
+          "promozione": false,
+          "attivo": true,
+          "evidenzia": false,
+          "whatsapp": false
+        },
+        {
+          "nome": "Controllo Livello Olio &amp; Liquidi",
+          "descrizione": "Controllo livello olio motore e liquidi generali, senza impegno.",
+          "prezzo": "GRATIS",
+          "unita": "mentre aspetti",
+          "prezzo_promo": "",
+          "promozione": false,
+          "attivo": true,
+          "evidenzia": false,
+          "whatsapp": false
+        },
+        {
+          "nome": "Sostituzione Spazzole Tergicristallo",
+          "descrizione": "Già che sei qui, chiedi le spazzole nuove!",
+          "prezzo": "da 30,00€",
+          "unita": "in base all'auto",
+          "prezzo_promo": "",
+          "promozione": false,
+          "attivo": true,
+          "evidenzia": true,
+          "whatsapp": false
+        }
+      ]
+    },
+    {
+      "ordine": 7,
       "id": "promo_speciale_assetto_3d",
       "titolo": "SERVIZI SPECIALIZZATI DI ASSETTO E CONVERGENZA",
       "durata_sec": 7,
@@ -249,7 +345,7 @@ const LISTINO_DATA = {
       ]
     },
     {
-      "ordine": 6,
+      "ordine": 8,
       "id": "assetto_convergenza",
       "titolo": "ASSETTO &amp; CONVERGENZA 3D HUNTER",
       "durata_sec": 15,
@@ -303,7 +399,7 @@ const LISTINO_DATA = {
       ]
     },
     {
-      "ordine": 7,
+      "ordine": 9,
       "id": "montaggio_gomme_cliente",
       "titolo": "PNEUMATICI NUOVI PROCURATI DAL CLIENTE",
       "durata_sec": 12,
@@ -367,7 +463,7 @@ const LISTINO_DATA = {
       ]
     },
     {
-      "ordine": 8,
+      "ordine": 10,
       "id": "trasparenza_servizio",
       "titolo": "ACQUISTA DA NOI: MONTAGGIO E GARANZIA INCLUSI",
       "durata_sec": 8,
@@ -409,19 +505,19 @@ const LISTINO_DATA = {
       ]
     },
     {
-      "ordine": 9,
+      "ordine": 11,
       "id": "montaggio",
       "titolo": "MONTAGGIO &amp; EQUILIBRATURA PNEUMATICI",
-      "durata_sec": 10,
+      "durata_sec": 15,
       "attivo": true,
       "periodi": [
         {
-          "dal": "31/05",
-          "al": "09/10"
+          "dal": "16/12",
+          "al": "09/04"
         },
         {
-          "dal": "01/12",
-          "al": "09/04"
+          "dal": "16/12",
+          "al": "09/10"
         }
       ],
       "servizi": [
@@ -472,7 +568,7 @@ const LISTINO_DATA = {
       ]
     },
     {
-      "ordine": 10,
+      "ordine": 12,
       "id": "equilibratura_inversione",
       "titolo": "EQUILIBRATURA &amp; INVERSIONE RUOTE",
       "durata_sec": 8,
@@ -503,106 +599,10 @@ const LISTINO_DATA = {
       ]
     },
     {
-      "ordine": 11,
-      "id": "servizi_stagionali_inverno",
-      "titolo": "INVERNO: CAMBIO GOMME &amp; CHECK",
-      "durata_sec": 6,
-      "attivo": true,
-      "periodi": [
-        {
-          "dal": "15/10",
-          "al": "30/11"
-        }
-      ],
-      "servizi": [
-        {
-          "nome": "Cambio Gomme Invernali",
-          "descrizione": "Dal 15 novembre al 15 aprile servono pneumatici invernali oppure le catene a bordo. Prenota ora il cambio.",
-          "prezzo": "da 50,00€",
-          "unita": "per 4 gomme, in base alla misura",
-          "prezzo_promo": "",
-          "promozione": false,
-          "attivo": true,
-          "evidenzia": false,
-          "whatsapp": false
-        },
-        {
-          "nome": "Controllo Livello Olio &amp; Liquidi",
-          "descrizione": "Controllo livello olio motore e liquidi generali, senza impegno.",
-          "prezzo": "GRATIS",
-          "unita": "mentre aspetti",
-          "prezzo_promo": "",
-          "promozione": false,
-          "attivo": true,
-          "evidenzia": false,
-          "whatsapp": false
-        },
-        {
-          "nome": "Sostituzione Spazzole Tergicristallo",
-          "descrizione": "Già che sei qui, chiedi le spazzole nuove!",
-          "prezzo": "da 30,00€",
-          "unita": "in base all'auto",
-          "prezzo_promo": "",
-          "promozione": false,
-          "attivo": true,
-          "evidenzia": false,
-          "whatsapp": false
-        }
-      ]
-    },
-    {
-      "ordine": 12,
-      "id": "servizi_stagionali_estate",
-      "titolo": "ESTATE: CAMBIO GOMME &amp; CHECK",
-      "durata_sec": 6,
-      "attivo": true,
-      "periodi": [
-        {
-          "dal": "01/04",
-          "al": "15/05"
-        }
-      ],
-      "servizi": [
-        {
-          "nome": "Cambio Gomme Estive",
-          "descrizione": "Dal 16 aprile le gomme invernali con velocità inferiore al libretto non sono ammesse (tolleranza fino al 15 maggio).",
-          "prezzo": "da 50,00€",
-          "unita": "per 4 gomme, in base alla misura",
-          "prezzo_promo": "",
-          "promozione": false,
-          "attivo": true,
-          "evidenzia": false,
-          "whatsapp": false
-        },
-        {
-          "nome": "Controllo Livello Olio &amp; Liquidi",
-          "descrizione": "Controllo livello olio motore e liquidi generali, senza impegno.",
-          "prezzo": "GRATIS",
-          "unita": "mentre aspetti",
-          "prezzo_promo": "",
-          "promozione": false,
-          "attivo": true,
-          "evidenzia": false,
-          "whatsapp": false
-        },
-        {
-          "nome": "Sostituzione Spazzole Tergicristallo",
-          "descrizione": "Già che sei qui, chiedi le spazzole nuove!",
-          "prezzo": "da 30,00€",
-          "unita": "in base all'auto",
-          "prezzo_promo": "",
-          "promozione": false,
-          "attivo": true,
-          "evidenzia": false,
-          "whatsapp": false
-        }
-      ]
-    },
-    {
       "ordine": 13,
       "id": "freni_diagnosi",
       "titolo": "Freni, Diagnosi &amp; Valvole TPMS",
-      "durata_sec": 4,
+      "durata_sec": 6,
       "attivo": true,
       "servizi": [
         {
@@ -644,7 +644,7 @@ const LISTINO_DATA = {
       "ordine": 14,
       "id": "officina_mobile",
       "titolo": "OFFICINA MOBILE • SERVIZIO A DOMICILIO",
-      "durata_sec": 4,
+      "durata_sec": 6,
       "attivo": true,
       "servizi": [
         {
@@ -664,7 +664,7 @@ const LISTINO_DATA = {
       "ordine": 15,
       "id": "meteo_mappano",
       "titolo": "Meteo Locale • Mappano (TO)",
-      "durata_sec": 6,
+      "durata_sec": 7,
       "attivo": true,
       "is_meteo_page": true
     },
@@ -672,7 +672,7 @@ const LISTINO_DATA = {
       "ordine": 16,
       "id": "orari_prenotazione",
       "titolo": "Orari di Apertura &amp; Prenotazioni Online",
-      "durata_sec": 4,
+      "durata_sec": 8,
       "attivo": true,
       "is_info_page": true,
       "orario_mattina": "08:30 - 12:15",
