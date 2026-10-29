@@ -444,6 +444,75 @@ document.addEventListener('DOMContentLoaded', () => {
         return !valore || valore === "DA_CONFIGURARE" || valore.toString().trim() === "";
     }
 
+
+    // ---- Vetrina GommePro: prodotti del negozio web, a rotazione ----
+    function vetrinaProdotti(cat, data) {
+        const attive = (cat.regole || []).filter(r => dentroPeriodi(r, data));
+        return (cat.prodotti || []).filter(p => attive.some(r => r.stagione === p.stagione && (r.misure || []).indexOf(p.misura) !== -1));
+    }
+    function generatoreCaso(seme) {            // numeri a caso ripetibili: stessa ora = stessi prodotti
+        let a = (seme >>> 0) + 0x6D2B79F5;
+        return function () {
+            a = (a + 0x6D2B79F5) >>> 0;
+            let t = a;
+            t = Math.imul(t ^ (t >>> 15), t | 1);
+            t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+    }
+    function scegliVetrina(cat, data) {
+        const pool = vetrinaProdotti(cat, data).slice().sort((x, y) => x.id - y.id);
+        const ore = Math.max(1, cat.ogni_ore || 1);
+        const rnd = generatoreCaso(Math.floor(data.getTime() / (3600000 * ore)) ^ 0x5bd1e995);
+        for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); const t = pool[i]; pool[i] = pool[j]; pool[j] = t; }
+        // meglio i prodotti la cui foto si carica davvero
+        const n = cat.box === 6 ? 6 : 4;
+        const buoni = pool.filter(p => fotoOk[p.img] !== false);
+        const base = buoni.length >= n ? buoni : pool;
+        const scelti = [];
+        // prima un prodotto per ciascuna marca "sempre presente" (se c'è)
+        (cat.marche_fisse || []).forEach(m => {
+            if (scelti.length >= n) return;
+            const k = String(m).toLowerCase();
+            const c = base.filter(p => scelti.indexOf(p) === -1 && String(p.marca).toLowerCase().indexOf(k) !== -1);
+            if (c.length) scelti.push(c[0]);   // la lista è già mescolata: il primo è a caso
+        });
+        base.forEach(p => { if (scelti.length < n && scelti.indexOf(p) === -1) scelti.push(p); });
+        // dal prezzo più basso al più alto
+        return scelti.sort((a, b) => prezzoNum(a.prezzo) - prezzoNum(b.prezzo));
+    }
+    const fotoOk = {};
+    function prezzoNum(t) { return parseFloat(String(t || '').replace(/\./g, '').replace(',', '.')) || 0; }
+    function precaricaFoto(cat) {
+        // scalda e controlla le foto in anticipo (il negozio le crea alla prima richiesta)
+        vetrinaProdotti(cat, new Date()).slice(0, 120).forEach(p => {
+            if (!p.img || fotoOk[p.img] !== undefined) return;
+            const im = new Image();
+            im.onload = () => { fotoOk[p.img] = true; };
+            im.onerror = () => { fotoOk[p.img] = false; };
+            im.src = p.img;
+        });
+    }
+    const NOME_STAG = { invernali: 'Invernale', estive: 'Estivo', '4stagioni': '4 stagioni' };
+    const prezziLive = {};
+    function aggiornaPrezziLive(cat, scelti) {
+        // Prova a leggere i prezzi aggiornati direttamente dal negozio; se non riesce restano quelli salvati
+        if (!window.fetch || !/^https:\/\/[a-z0-9.-]+$/i.test(cat.sito || '') || !scelti.length) return;
+        const ctrl = window.AbortController ? new AbortController() : null;
+        const tempo = setTimeout(() => { if (ctrl) ctrl.abort(); }, 5000);
+        fetch(cat.sito + '/wp-json/wc/store/v1/products?per_page=' + scelti.length + '&include=' + scelti.map(p => p.id).join(','), ctrl ? { signal: ctrl.signal } : {})
+            .then(r => r.ok ? r.json() : [])
+            .then(lista => {
+                (Array.isArray(lista) ? lista : []).forEach(p => {
+                    const dec = p.prices && Number.isFinite(+p.prices.currency_minor_unit) ? +p.prices.currency_minor_unit : 2;
+                    const cent = p.prices ? parseInt(p.prices.price, 10) : NaN;
+                    if (!(cent > 0)) return;
+                    prezziLive[p.id] = (cent / Math.pow(10, dec)).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+,)/g, '.') + ' €';
+                    document.querySelectorAll('[data-pid="' + p.id + '"]').forEach(e => { e.textContent = prezziLive[p.id]; });
+                });
+            }).catch(() => {}).then(() => clearTimeout(tempo));
+    }
+
     function inializzaVetrina() {
         if (!listinoData) return;
 
@@ -459,6 +528,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!cat.attivo) return false;
             if (!dentroPeriodi(cat, oggi)) return false;
             if (cat.is_info_page || cat.is_meteo_page) return true;
+            if (cat.is_vetrina_gommepro) { precaricaFoto(cat); return vetrinaProdotti(cat, oggi).length > 0; }
 
             // Controllo Servizi Stagionali
             if (cat.is_stagionale) {
@@ -739,6 +809,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
             `;
+        } else if (category.is_vetrina_gommepro) {
+            const scelti = scegliVetrina(category, new Date());
+            const sei = category.box === 6;
+            const carte = scelti.map((p, k) => `
+                <div class="vt-box${k === 0 && scelti.length > 1 ? ' vt-top' : ''}">
+                    ${k === 0 && scelti.length > 1 ? (category.testo_evidenza ? '<div class="vt-miglior">' + category.testo_evidenza + '</div>' : '') : ''}
+                    <div class="vt-foto">${p.img ? `<img src="${p.img}" alt="" referrerpolicy="no-referrer" onerror="this.style.display='none'">` : ''}<span class="vt-stag vt-${p.stagione}"${category.colori && category.colori[p.stagione] ? ` style="background:${category.colori[p.stagione]}"` : ''}>${NOME_STAG[p.stagione] || ''}</span></div>
+                    <div class="vt-testo">
+                        <div class="vt-marca">${p.marca}</div>
+                        <div class="vt-modello">${p.modello}</div>
+                        <div class="vt-misura">${p.misura}</div>
+                        ${p.ean ? `<div class="vt-ean">EAN ${p.ean}</div>` : ''}
+                        <div class="vt-prezzo"><span data-pid="${p.id}">${prezziLive[p.id] || p.prezzo}</span><small>cad. · IVA inclusa<br>+ PFU · escluso montaggio</small></div>
+                    </div>
+                </div>`).join('');
+            html = `<h2 class="category-title">${category.titolo}</h2><div class="vt-griglia ${sei ? 'vt-sei' : 'vt-quattro'}">${carte}</div>`;
+            aggiornaPrezziLive(category, scelti);
         } else if (category.is_promo_spot) {
             const servizio = category.servizi && category.servizi[0] ? category.servizi[0] : {};
             const scadenzaTesto = servizio.scadenza_promo ? `<div style="font-size: 1.1rem; color: var(--primary-orange); font-weight: 600; margin-top: 0.5rem;">📅 ${servizio.scadenza_promo}</div>` : '';
@@ -860,10 +947,31 @@ document.addEventListener('DOMContentLoaded', () => {
             togglePause();
         });
 
+        // Tasti: spazio o OK del telecomando = pausa/ripresa; frecce = scheda dopo/prima
+        function vaiScheda(passo) {
+            if (!listinoData || !listinoData.categorie || !listinoData.categorie.length) return;
+            const n = listinoData.categorie.length;
+            currentCategoryIndex = (currentCategoryIndex + passo + n) % n;
+            secondsElapsed = 0;
+            renderCurrentCategory();
+            // Mentre guardi una scheda il listino resta fermo 60 secondi
+            isPaused = true;
+            updateIndicatorText();
+            if (pauseTimeout) clearTimeout(pauseTimeout);
+            pauseTimeout = setTimeout(() => { isPaused = false; updateIndicatorText(); }, 60000);
+        }
+
         document.addEventListener('keydown', (e) => {
-            if (e.code === 'Space') {
+            const k = e.code || e.key;
+            if (k === 'Space' || k === 'Enter' || k === 'NumpadEnter' || e.key === 'Enter' || e.key === ' ' || e.keyCode === 23 || e.keyCode === 13) {
                 e.preventDefault();
                 togglePause();
+            } else if (k === 'ArrowRight' || e.key === 'ArrowRight' || e.keyCode === 39) {
+                e.preventDefault();
+                vaiScheda(1);
+            } else if (k === 'ArrowLeft' || e.key === 'ArrowLeft' || e.keyCode === 37) {
+                e.preventDefault();
+                vaiScheda(-1);
             }
         });
     }
