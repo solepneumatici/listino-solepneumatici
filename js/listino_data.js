@@ -2360,8 +2360,8 @@ const LISTINO_DATA = {
           ],
           "periodi": [
             {
-              "dal": "16/03",
-              "al": "30/09"
+              "dal": "01/03",
+              "al": "01/10"
             }
           ]
         },
@@ -2376,7 +2376,7 @@ const LISTINO_DATA = {
           "periodi": [
             {
               "dal": "02/10",
-              "al": "01/03"
+              "al": "28/02"
             }
           ]
         },
