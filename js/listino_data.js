@@ -2338,7 +2338,7 @@ const LISTINO_DATA = {
       "durata_sec": 12,
       "attivo": true,
       "is_vetrina_gommepro": true,
-      "box": 4,
+      "box": 6,
       "ogni_ore": 1,
       "sito": "https://gommepro.it",
       "testo_evidenza": "MIGLIOR PREZZO",
@@ -2349,8 +2349,8 @@ const LISTINO_DATA = {
       },
       "marche_fisse": [
         "Hankook",
-        "Continental",
-        "Pirelli"
+        "Laufenn",
+        "Barum"
       ],
       "regole": [
         {
@@ -2360,21 +2360,34 @@ const LISTINO_DATA = {
           ],
           "periodi": [
             {
-              "dal": "16/04",
-              "al": "14/10"
+              "dal": "16/03",
+              "al": "30/09"
             }
           ]
         },
         {
           "stagione": "invernali",
           "misure": [
-            "205/55 R16"
+            "205/55 R16",
+            "225/45 R17",
+            "195/55 R16",
+            "185/65 R15"
           ],
           "periodi": [
             {
-              "dal": "15/10",
-              "al": "15/04"
+              "dal": "02/10",
+              "al": "01/03"
             }
+          ]
+        },
+        {
+          "stagione": "4stagioni",
+          "misure": [
+            "205/60 R16",
+            "215/60 R17",
+            "195/55 R16",
+            "185/65 R15",
+            "175/65 R14"
           ]
         }
       ],
@@ -2941,17 +2954,6 @@ const LISTINO_DATA = {
           "url": "https://gommepro.it/prodotto/nokian-snowproof_2-205-55-16-invernali-snow_grip-6419440567822/"
         },
         {
-          "id": 4672347,
-          "ean": "4024068001614",
-          "marca": "UNIROYAL",
-          "modello": "WinterExpert",
-          "misura": "205/55 R16",
-          "stagione": "invernali",
-          "prezzo": "90,44 €",
-          "img": "https://gommepro.it/wp-content/uploads/external-images/pic_16233g-40b5cc452bf854862d603f2824bca709.jpg",
-          "url": "https://gommepro.it/prodotto/uniroyal-winterexpert-205-55-16-invernali-4024068001614/"
-        },
-        {
           "id": 4665549,
           "ean": "5420068626632",
           "marca": "IMPERIAL",
@@ -2985,17 +2987,6 @@ const LISTINO_DATA = {
           "url": "https://gommepro.it/prodotto/tomket-snowroad-205-55-16-invernali-snow_grip-8594186484218/"
         },
         {
-          "id": 4661466,
-          "ean": "8594186480784",
-          "marca": "TOMKET",
-          "modello": "SNOWROAD PRO 3 XL",
-          "misura": "205/55 R16",
-          "stagione": "invernali",
-          "prezzo": "63,17 €",
-          "img": "https://b2b.interservicetrade.com/archive_img/tomket_snowroad_pro_3-front.jpg",
-          "url": "https://gommepro.it/prodotto/tomket-snowroad_pro_3_xl-205-55-16-invernali-xl-8594186480784/"
-        },
-        {
           "id": 4659327,
           "ean": "6924064101821",
           "marca": "LANVIGATOR",
@@ -3005,6 +2996,402 @@ const LISTINO_DATA = {
           "prezzo": "54,08 €",
           "img": "https://gommepro.it/wp-content/uploads/external-images/67357l14264-6e0af130692719dbc52f9c3cfcaa77e3.jpg",
           "url": "https://gommepro.it/prodotto/lanvigator-catchsnow-205-55-16-invernali-xl-snow_grip-6924064101821/"
+        },
+        {
+          "id": 4669650,
+          "ean": "8680830043792",
+          "marca": "PETLAS",
+          "modello": "SNOWMASTER 2 SPORT XL",
+          "misura": "225/45 R17",
+          "stagione": "invernali",
+          "prezzo": "81,25 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/petlas-snowmaster2-bd9f6aca24e3436e90eaf935fb64e261.jpg",
+          "url": "https://gommepro.it/prodotto/petlas-snowmaster_2_sport_xl-225-45-17-invernali-xl-snow_grip-8680830043792/"
+        },
+        {
+          "id": 4667660,
+          "ean": "6972435766506",
+          "marca": "GRIPMAX",
+          "modello": "SureGrip Pro Winter",
+          "misura": "225/45 R17",
+          "stagione": "invernali",
+          "prezzo": "82,15 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/TZ50O0024-72296f0354efaa00d42d71cfbd5d775c.png",
+          "url": "https://gommepro.it/prodotto/gripmax-suregrip_pro_winter-225-45-17-invernali-xl-snow_grip-6972435766506/"
+        },
+        {
+          "id": 4665529,
+          "ean": "3528704427161",
+          "marca": "TAURUS",
+          "modello": "WINTER",
+          "misura": "225/45 R17",
+          "stagione": "invernali",
+          "prezzo": "70,69 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/taurus_winter-505b5490189249d5b82e4319c86bbd33.jpg",
+          "url": "https://gommepro.it/prodotto/taurus-winter-225-45-17-invernali-xl-snow_grip-3528704427161/"
+        },
+        {
+          "id": 4660014,
+          "ean": "6924064128873",
+          "marca": "LANVIGATOR",
+          "modello": "WINTERGRIP UHP",
+          "misura": "225/45 R17",
+          "stagione": "invernali",
+          "prezzo": "58,23 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/67357l16554-364416fd0afb007ebacf9e0758f40040.jpg",
+          "url": "https://gommepro.it/prodotto/lanvigator-wintergrip_uhp-225-45-17-invernali-xl-snow_grip-6924064128873/"
+        },
+        {
+          "id": 4667790,
+          "ean": "4038526431202",
+          "marca": "SAVA",
+          "modello": "Eskimo S3+",
+          "misura": "185/65 R15",
+          "stagione": "invernali",
+          "prezzo": "79,06 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/TZ28O0271-ba4a1406c0de3f6f69f7fab36fbc5c83.png",
+          "url": "https://gommepro.it/prodotto/sava-eskimo_s3-185-65-15-invernali-xl-snow_grip-4038526431202/"
+        },
+        {
+          "id": 4664889,
+          "ean": "5452000380951",
+          "marca": "SAVA",
+          "modello": "Eskimo S3+",
+          "misura": "185/65 R15",
+          "stagione": "invernali",
+          "prezzo": "72,54 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/TZ2890078-10ab92db53e5680b2c07ea72f9008a3c.png",
+          "url": "https://gommepro.it/prodotto/sava-eskimo_s3-185-65-15-invernali-snow_grip-5452000380951/"
+        },
+        {
+          "id": 4664362,
+          "ean": "5420068624409",
+          "marca": "IMPERIAL",
+          "modello": "SnowDragon HP",
+          "misura": "185/65 R15",
+          "stagione": "invernali",
+          "prezzo": "70,89 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/TZ3890197-52612d4f7149c5334361445d7348c3de.png",
+          "url": "https://gommepro.it/prodotto/imperial-snowdragon_hp-185-65-15-invernali-xl-snow_grip-5420068624409/"
+        },
+        {
+          "id": 4663590,
+          "ean": "5420068624393",
+          "marca": "IMPERIAL",
+          "modello": "SnowDragon HP",
+          "misura": "185/65 R15",
+          "stagione": "invernali",
+          "prezzo": "71,58 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/TZ3890196-cdd0f4229c3dbe06b56887fb0ce402de.png",
+          "url": "https://gommepro.it/prodotto/imperial-snowdragon_hp-185-65-15-invernali-snow_grip-5420068624393/"
+        },
+        {
+          "id": 4660064,
+          "ean": "8594186480678",
+          "marca": "TOMKET",
+          "modello": "SNOWROAD 3",
+          "misura": "185/65 R15",
+          "stagione": "invernali",
+          "prezzo": "59,48 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/tomket_snowroad_3-front-3d790e1339d14dc15dcdc372b926dae2.jpg",
+          "url": "https://gommepro.it/prodotto/tomket-snowroad_3-185-65-15-invernali-8594186480678/"
+        },
+        {
+          "id": 4687976,
+          "ean": "3528705363789",
+          "marca": "MICHELIN",
+          "modello": "CRISSCLIMATE+ S1",
+          "misura": "205/60 R16",
+          "stagione": "4stagioni",
+          "prezzo": "144,83 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/67357l13050-df0af6970e429c6ab7910d6654f79893.jpg",
+          "url": "https://gommepro.it/prodotto/michelin-crissclimate_s1-205-60-16-all_season-xl-snow_grip-3528705363789/"
+        },
+        {
+          "id": 4685944,
+          "ean": "3286341831511",
+          "marca": "BRIDGESTONE",
+          "modello": "A005 EVO WEATHER CONTROL",
+          "misura": "205/60 R16",
+          "stagione": "4stagioni",
+          "prezzo": "134,26 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/2043420075_WEATHERCONTROLA005-4cec5e7309e3754406b0c52d7a473a3b.jpg",
+          "url": "https://gommepro.it/prodotto/bridgestone-a005_evo_weather_control-205-60-16-all_season-xl-snow_grip-3286341831511/"
+        },
+        {
+          "id": 4689946,
+          "ean": "3528708630697",
+          "marca": "MICHELIN",
+          "modello": "CROSSCLIMATE 3",
+          "misura": "215/60 R17",
+          "stagione": "4stagioni",
+          "prezzo": "153,94 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/michelin-crossclimate3-8de08f4631d4675efc8f9bdd7dbc3f5a.jpg",
+          "url": "https://gommepro.it/prodotto/michelin-crossclimate_3-215-60-17-all_season-xl-snow_grip-3528708630697/"
+        },
+        {
+          "id": 4686844,
+          "ean": "5452000726841",
+          "marca": "GOODYEAR",
+          "modello": "VECTOR 4SEASONS G3 SUV",
+          "misura": "215/60 R17",
+          "stagione": "4stagioni",
+          "prezzo": "137,56 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/gy-vector-4s-g3-824e99c55627d6cf05221e0201cba6b7.jpg",
+          "url": "https://gommepro.it/prodotto/goodyear-vector_4seasons_g3_suv-215-60-17-all_season-xl-snow_grip-5452000726841/"
+        },
+        {
+          "id": 4683721,
+          "ean": "4038526048455",
+          "marca": "SAVA",
+          "modello": "All Weather",
+          "misura": "215/60 R17",
+          "stagione": "4stagioni",
+          "prezzo": "136,44 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/TC28O0178-c9ab04d1800117a7a3b8080060e2f2cf.png",
+          "url": "https://gommepro.it/prodotto/sava-all_weather-215-60-17-all_season-snow_grip-4038526048455/"
+        },
+        {
+          "id": 4682027,
+          "ean": "0029142969952",
+          "marca": "AVON",
+          "modello": "AS7",
+          "misura": "215/60 R17",
+          "stagione": "4stagioni",
+          "prezzo": "120,55 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/67357l16213-659a680620cf40971a756d6391545448.jpg",
+          "url": "https://gommepro.it/prodotto/avon-as7-215-60-17-all_season-xl-snow_grip-0029142969952/"
+        },
+        {
+          "id": 4679306,
+          "ean": "4981910563341",
+          "marca": "TOYO",
+          "modello": "CELSIUS AS2 XL",
+          "misura": "215/60 R17",
+          "stagione": "4stagioni",
+          "prezzo": "104,41 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/CELSIUS_AS2-12b0bd62e3726f3b37ba9383a8ed868b.jpg",
+          "url": "https://gommepro.it/prodotto/toyo-celsius_as2_xl-215-60-17-all_season-xl-snow_grip-4981910563341/"
+        },
+        {
+          "id": 4679305,
+          "ean": "4981910552369",
+          "marca": "TOYO",
+          "modello": "CEL. AS2",
+          "misura": "215/60 R17",
+          "stagione": "4stagioni",
+          "prezzo": "106,18 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/CELSIUS_AS2-12b0bd62e3726f3b37ba9383a8ed868b.jpg",
+          "url": "https://gommepro.it/prodotto/toyo-cel_as2-215-60-17-all_season-snow_grip-4981910552369/"
+        },
+        {
+          "id": 4671535,
+          "ean": "4718022007100",
+          "marca": "NANKANG",
+          "modello": "AW-6",
+          "misura": "215/60 R17",
+          "stagione": "4stagioni",
+          "prezzo": "89,80 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/na-aw6-6cf2837a0aeb6e9c9ced1e6ee63a4212.jpg",
+          "url": "https://gommepro.it/prodotto/nankang-aw6-215-60-17-all_season-xl-4718022007100/"
+        },
+        {
+          "id": 4676917,
+          "ean": "4038526476104",
+          "marca": "SAVA",
+          "modello": "All Weather",
+          "misura": "195/55 R16",
+          "stagione": "4stagioni",
+          "prezzo": "106,54 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/TC28O0266-459a261a0c1bc3e58d4584a830cfef26.png",
+          "url": "https://gommepro.it/prodotto/sava-all_weather-195-55-16-all_season-xl-snow_grip-4038526476104/"
+        },
+        {
+          "id": 4673540,
+          "ean": "4038526430687",
+          "marca": "SAVA",
+          "modello": "All Weather",
+          "misura": "195/55 R16",
+          "stagione": "4stagioni",
+          "prezzo": "99,99 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/TC28O0249-e3ea2a80c603473ff6a795989941de03.png",
+          "url": "https://gommepro.it/prodotto/sava-all_weather-195-55-16-all_season-snow_grip-4038526430687/"
+        },
+        {
+          "id": 4671527,
+          "ean": "8808956348014",
+          "marca": "KUMHO",
+          "modello": "HA32+ XL",
+          "misura": "195/55 R16",
+          "stagione": "4stagioni",
+          "prezzo": "93,33 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/ku-ha32xl.-c92d56f3655105147d64705d66d43ba7.jpg",
+          "url": "https://gommepro.it/prodotto/kumho-ha32_xl-195-55-16-all_season-xl-snow_grip-8808956348014/"
+        },
+        {
+          "id": 4675638,
+          "ean": "6969999000542",
+          "marca": "GRIPMAX",
+          "modello": "SureGrip A/S VAN",
+          "misura": "185/65 R15",
+          "stagione": "4stagioni",
+          "prezzo": "103,55 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/TC50D0045-56575c01fc389424b4ecd1d48a4997ca.png",
+          "url": "https://gommepro.it/prodotto/gripmax-suregrip_as_van-185-65-15-all_season-snow_grip-6969999000542/"
+        },
+        {
+          "id": 4674349,
+          "ean": "3528708612853",
+          "marca": "MICHELIN",
+          "modello": "CROSSCLIMATE 2",
+          "misura": "185/65 R15",
+          "stagione": "4stagioni",
+          "prezzo": "100,36 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/1930974232_CROSSCLIMATE2-5bd0527af62d09b1252406036eacc850.jpg",
+          "url": "https://gommepro.it/prodotto/michelin-crossclimate_2-185-65-15-all_season-snow_grip-3528708612853/"
+        },
+        {
+          "id": 4671318,
+          "ean": "5452000726766",
+          "marca": "GOODYEAR",
+          "modello": "VECTOR 4SEASONS G3",
+          "misura": "185/65 R15",
+          "stagione": "4stagioni",
+          "prezzo": "85,74 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/gy-vector-4s-g3-824e99c55627d6cf05221e0201cba6b7.jpg",
+          "url": "https://gommepro.it/prodotto/goodyear-vector_4seasons_g3-185-65-15-all_season-xl-snow_grip-5452000726766/"
+        },
+        {
+          "id": 4669832,
+          "ean": "8019227445268",
+          "marca": "PIRELLI",
+          "modello": "CINTURATO AS PLUS",
+          "misura": "185/65 R15",
+          "stagione": "4stagioni",
+          "prezzo": "86,03 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/pi_cinturato_as_-6dc9726c2da1e3e38697ebc4755a6e70.jpg",
+          "url": "https://gommepro.it/prodotto/pirelli-cinturato_as_plus-185-65-15-all_season-snow_grip-8019227445268/"
+        },
+        {
+          "id": 4669112,
+          "ean": "4038526047151",
+          "marca": "SAVA",
+          "modello": "All Weather",
+          "misura": "185/65 R15",
+          "stagione": "4stagioni",
+          "prezzo": "82,96 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/TC28O0170-51eb2feaada9cf7a95811798d786831e.png",
+          "url": "https://gommepro.it/prodotto/sava-all_weather-185-65-15-all_season-snow_grip-4038526047151/"
+        },
+        {
+          "id": 4668278,
+          "ean": "3286341673913",
+          "marca": "FIRESTONE",
+          "modello": "MULTISEASON-2",
+          "misura": "185/65 R15",
+          "stagione": "4stagioni",
+          "prezzo": "76,85 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/pic_15694g-02b4eee3fd0aa9e5be30658d3224b456.jpg",
+          "url": "https://gommepro.it/prodotto/firestone-multiseason2-185-65-15-all_season-xl-snow_grip-3286341673913/"
+        },
+        {
+          "id": 4663068,
+          "ean": "5420068628032",
+          "marca": "IMPERIAL",
+          "modello": "All Season Driver",
+          "misura": "185/65 R15",
+          "stagione": "4stagioni",
+          "prezzo": "69,94 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/TC38O0262-e67aaa54592577544cfaf4bc1efe0358.png",
+          "url": "https://gommepro.it/prodotto/imperial-all_season_driver-185-65-15-all_season-xl-snow_grip-5420068628032/"
+        },
+        {
+          "id": 4657736,
+          "ean": "8848180008643",
+          "marca": "SUNNY",
+          "modello": "NC501 ALL SEASON",
+          "misura": "185/65 R15",
+          "stagione": "4stagioni",
+          "prezzo": "55,53 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/sunny-nc501-aea8b7c7d568eb693668dbfdde76f865.jpg",
+          "url": "https://gommepro.it/prodotto/sunny-nc501_all_season-185-65-15-all_season-snow_grip-8848180008643/"
+        },
+        {
+          "id": 4668785,
+          "ean": "4038526419750",
+          "marca": "GOODYEAR",
+          "modello": "VECTOR 4SEASONS G3",
+          "misura": "175/65 R14",
+          "stagione": "4stagioni",
+          "prezzo": "78,30 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/67357l15539-357e05160838bc859c1170db7c372d02.jpg",
+          "url": "https://gommepro.it/prodotto/goodyear-vector_4seasons_g3-175-65-14-all_season-xl-snow_grip-4038526419750/"
+        },
+        {
+          "id": 4665369,
+          "ean": "3286341673111",
+          "marca": "FIRESTONE",
+          "modello": "MULTISEASON-2",
+          "misura": "175/65 R14",
+          "stagione": "4stagioni",
+          "prezzo": "68,99 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/fi-mseason-2-02e3d43ea550c526289dba4febb995e7.jpg",
+          "url": "https://gommepro.it/prodotto/firestone-multiseason2-175-65-14-all_season-xl-snow_grip-3286341673111/"
+        },
+        {
+          "id": 4662533,
+          "ean": "4024068000686",
+          "marca": "UNIROYAL",
+          "modello": "ALLSEASON EXPERT-2",
+          "misura": "175/65 R14",
+          "stagione": "4stagioni",
+          "prezzo": "62,60 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/ALLSEASONEXPERT_2-4c2a7962f033c5391a3feca8403c7086.jpg",
+          "url": "https://gommepro.it/prodotto/uniroyal-allseason_expert2-175-65-14-all_season-snow_grip-4024068000686/"
+        },
+        {
+          "id": 4661459,
+          "ean": "5420068634217",
+          "marca": "IMPERIAL",
+          "modello": "All Season Van Driver",
+          "misura": "175/65 R14",
+          "stagione": "4stagioni",
+          "prezzo": "67,86 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/TC38D0086-a92e0c0356f64f082f9223521a8bdfb3.png",
+          "url": "https://gommepro.it/prodotto/imperial-all_season_van_driver-175-65-14-all_season-snow_grip-5420068634217/"
+        },
+        {
+          "id": 4660366,
+          "ean": "5420068627981",
+          "marca": "IMPERIAL",
+          "modello": "All Season Driver",
+          "misura": "175/65 R14",
+          "stagione": "4stagioni",
+          "prezzo": "64,44 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/TC38O0257-5a02296be7a76e207073cebaf68090f7.png",
+          "url": "https://gommepro.it/prodotto/imperial-all_season_driver-175-65-14-all_season-xl-snow_grip-5420068627981/"
+        },
+        {
+          "id": 4659019,
+          "ean": "3528706128011",
+          "marca": "KORMORAN",
+          "modello": "ALL SEASON",
+          "misura": "175/65 R14",
+          "stagione": "4stagioni",
+          "prezzo": "55,03 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/67357l14765-375a59b76b89200d61db39b2c03115b5.jpg",
+          "url": "https://gommepro.it/prodotto/kormoran-all_season-175-65-14-all_season-3528706128011/"
+        },
+        {
+          "id": 4659011,
+          "ean": "3528700532173",
+          "marca": "KORMORAN",
+          "modello": "ALL SEASON",
+          "misura": "175/65 R14",
+          "stagione": "4stagioni",
+          "prezzo": "55,49 €",
+          "img": "https://gommepro.it/wp-content/uploads/external-images/395310326_ALLSEASON-44bb6bcfc69b06b24d05453f19cc6107.jpg",
+          "url": "https://gommepro.it/prodotto/kormoran-all_season-175-65-14-all_season-xl-3528700532173/"
         }
       ]
     },
